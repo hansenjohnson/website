@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Hansen Johnson</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Hansen Johnson</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Hansen Johnson 2018</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 -0500</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sync GitHub repository with existing R project</title>
+      <link>/post/sync-github-repository-with-existing-r-project/</link>
+      <pubDate>Sat, 03 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sync-github-repository-with-existing-r-project/</guid>
+      <description>Many of the R projects I start don&amp;rsquo;t pan out and end up in a scrap directory somewhere, but once in awhile I make enough progress to get worried that I&amp;rsquo;ll lose track of it. That&amp;rsquo;s when I know it&amp;rsquo;s time to get it up on GitHub. This post is mostly just a way for me to remember how to get an existing R project on GitHub. I&amp;rsquo;m sure there are better ways of doing this in the command line, but I&amp;rsquo;m still pretty new to Git so I&amp;rsquo;m sticking with what I know works.</description>
+    </item>
+    
+    <item>
+      <title>Spectrograms in R</title>
+      <link>/post/spectrograms-in-r/</link>
+      <pubDate>Fri, 02 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/spectrograms-in-r/</guid>
+      <description>The spectrogram is one of the most important tools in a bioacoustician’s arsenal. They can help us see what we do not or cannot hear. I generate and plot spectrograms in a variety of ways. Typically, I turn to Audacity if I want to plot something up quickly, Raven to make a few quick measurements or annotations, and Matlab for anything more detailed. This is all fine and good, but recently I’ve had a few projects that require producing some nice looking spectrograms in R.</description>
+    </item>
+    
+  </channel>
+</rss>

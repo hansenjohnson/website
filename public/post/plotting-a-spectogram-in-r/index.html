@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme" content="hugo-academic">
+  <meta name="generator" content="Hugo 0.36" />
+  <meta name="author" content="Hansen Johnson">
+
+  
+  
+  
+  
+    
+      
+    
+  
+  <meta name="description" content="The spectrogram is one of the most important tools in a bioacoustician’s arsenal. I have to be honest, even though I study bioacoustics and love using R, I rarely combine the two. Usually I find myself making quick spectrograms in Audacity or Raven (because its easy), or building more customized plots in Matlab where I do most signal processing type stuff. Recently, though, I needed to produce some nice looking spectrograms in R, and was pleasantly surprised at how they turned out.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/plotting-a-spectogram-in-r/">
+
+  
+
+
+  
+
+  
+  
+  <meta name="theme-color" content="hsl(216, 90%, 68%)">
+  
+  
+  
+  
+    
+  
+  
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
+    
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha512-6MXa8B6uaO18Hid6blRMetEIoPqHf7Ux1tnyIQdpt9qI5OACx7C+O3IVTr98vwGnlcg0LOLa02i9Y1HpVhlfiw==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.1/css/academicons.min.css" integrity="sha512-NThgw3XKQ1absAahW6to7Ey42uycrVvfNfyjqcFNgCmOCQ5AR4AO0SiXrN+8ZtYeappp56lk1WtvjVmEa+VR6A==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+  
+  
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7cRoboto:400,400italic,700%7cRoboto&#43;Mono">
+  
+  <link rel="stylesheet" href="/styles.css">
+  
+
+  
+
+  
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Hansen Johnson">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Hansen Johnson">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="/post/plotting-a-spectogram-in-r/">
+
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="Hansen Johnson">
+  <meta property="og:url" content="/post/plotting-a-spectogram-in-r/">
+  <meta property="og:title" content="Plotting a spectogram in R | Hansen Johnson">
+  <meta property="og:description" content="The spectrogram is one of the most important tools in a bioacoustician’s arsenal. I have to be honest, even though I study bioacoustics and love using R, I rarely combine the two. Usually I find myself making quick spectrograms in Audacity or Raven (because its easy), or building more customized plots in Matlab where I do most signal processing type stuff. Recently, though, I needed to produce some nice looking spectrograms in R, and was pleasantly surprised at how they turned out.">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2018-03-02T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2018-03-02T00:00:00&#43;00:00">
+  
+
+  
+
+  <title>Plotting a spectogram in R | Hansen Johnson</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#toc" data-offset="71" class="dark">
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="navbar-header">
+      
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target=".navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+      <a class="navbar-brand" href="/">Hansen Johnson</a>
+    </div>
+
+    
+    <div class="collapse navbar-collapse">
+
+      
+      
+      <ul class="nav navbar-nav navbar-right">
+        
+
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a href="/">
+            
+            <span>Home</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/projects/">
+            
+            <span>Projects</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/talk/">
+            
+            <span>Presentations</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/publication/">
+            
+            <span>Publications</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/post/">
+            
+            <span>Posts</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a href="/cv/">
+            
+            <span>CV</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/about/">
+            
+            <span>About</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/contact/">
+            
+            <span>Contact</span>
+            
+          </a>
+        </li>
+
+        
+        
+      
+
+      
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+  <div class="article-container">
+    <h1 itemprop="name">Plotting a spectogram in R</h1>
+
+    
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    
+    <time datetime="2018-03-02 00:00:00 &#43;0000 UTC" itemprop="datePublished dateModified">
+      Mar 2, 2018
+    </time>
+  </span>
+  <span itemscope itemprop="author publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Hansen Johnson">
+  </span>
+
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fa fa-folder"></i>
+    
+    <a href="/categories/r">R</a
+    >
+    
+  </span>
+  
+  
+
+  
+  
+
+  
+
+</div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      <p>The spectrogram is one of the most important tools in a bioacoustician’s arsenal. I have to be honest, even though I study bioacoustics and love using <code>R</code>, I rarely combine the two. Usually I find myself making quick spectrograms in Audacity or Raven (because its easy), or building more customized plots in Matlab where I do most signal processing type stuff. Recently, though, I needed to produce some nice looking spectrograms in <code>R</code>, and was pleasantly surprised at how they turned out. It seemed like a good first post for my new website.</p>
+<div id="read-an-audio-file" class="section level2">
+<h2>Read an audio file</h2>
+<p>First we have to find a signal to plot. I’m going to take an example of a right whale upcall we recorded off the Scotian Shelf a couple years ago, but <em>hopefully</em> this will work for any <code>.wav</code> file.</p>
+<pre class="r"><code>library(tuneR, warn.conflicts = F, quietly = T) # nice functions for reading and manipulating .wav files
+
+# define path to audio file
+fin = &#39;~/Data/sound_examples/example_packages/sound_examples/right_whale_upcall1.wav&#39;
+
+# read in audio file
+data = readWave(fin)
+
+# extract signal
+snd = data@left
+  
+# determine duration
+dur = length(snd)/data@samp.rate
+dur # seconds
+## [1] 3.588
+
+# determine sample rate
+fs = data@samp.rate
+fs # Hz
+## [1] 2000</code></pre>
+</div>
+<div id="plot-waveform" class="section level2">
+<h2>Plot waveform</h2>
+<pre class="r"><code># demean to remove DC offset
+snd1 = snd - mean(snd)
+
+# plot waveform
+plot(snd1, type = &#39;l&#39;, xlab = &#39;Samples&#39;, ylab = &#39;Amplitude&#39;)</code></pre>
+<p><img src="/post/2018-03-02-plotting-a-spectogram-in-r_files/figure-html/waveform-1.png" width="672" /></p>
+</div>
+<div id="define-spectrogram-parameters" class="section level2">
+<h2>Define spectrogram parameters</h2>
+<p>The next step is to define the parameters used to construct the spectrogram. What each parameter is and how to choose them appropriately is the topic for another discussion. I’ll just pick some reasonable values as a demonstration.</p>
+<pre class="r"><code># number of points to use for the fft
+nfft=1024
+
+# window size (in points)
+window=256
+
+# overlap (in points)
+overlap=128</code></pre>
+</div>
+<div id="plot-the-spectrogram" class="section level2">
+<h2>Plot the spectrogram</h2>
+<pre class="r"><code>library(signal, warn.conflicts = F, quietly = T) # signal processing functions
+library(oce, warn.conflicts = F, quietly = T) # image plotting functions and nice color maps
+
+# create spectrogram
+spec = specgram(x = snd,
+                n = nfft,
+                Fs = fs,
+                window = window,
+                overlap = overlap
+)
+
+# discard phase information
+P = abs(spec$S)
+
+# normalize
+P = P/max(P)
+
+# convert to dB
+P = 10*log10(P)
+
+# config time axis
+t = spec$t
+
+# plot spectrogram
+imagep(x = t,
+       y = spec$f, 
+       z = t(P), 
+       col = oce.colorsViridis, 
+       ylab = &#39;Frequency [Hz]&#39;, 
+       xlab = &#39;Time [s]&#39;, 
+       drawPalette = T,
+       decimate = F
+)</code></pre>
+<p><img src="/post/2018-03-02-plotting-a-spectogram-in-r_files/figure-html/main-1.png" width="672" /></p>
+</div>
+<div id="all-done" class="section level2">
+<h2>All done!</h2>
+<p>Happy plotting :)</p>
+</div>
+<div id="bonus-functionize-it" class="section level2">
+<h2>Bonus: functionize it</h2>
+<p>Here’s an example of how to put everything above into a tidy plotting function. I’ve made a few changes here that were specific to my application at the time:</p>
+<ul>
+<li><p>The main data input is a <code>Formal class Wave</code> object in R (i.e. input from <code>tuneR</code>), but you could easily change things around to accept the path to a <code>.wav</code> file.</p></li>
+<li><p>If the <code>t0</code> input is 0, the time axis is in seconds elapsed since the start of the file, but you can also pass a <code>POSIXct</code> value to display the time/date.</p></li>
+<li><p>I have included switches to optionally plot the spectrogram (<code>plot_spec</code>), normalize the waveform (<code>normalize</code>), and/or return the spectrogram data (<code>return_data</code>).</p></li>
+<li><p>The <code>...</code> means that I can pass additional arguments to the <code>imagep()</code> plotting function</p></li>
+<li><p>I took some stylistic liberties and chose to create a spectrogram against a dark background, just because I like the way it looks</p></li>
+</ul>
+<pre class="r"><code>spectro = function(data, nfft=1024, window=256, overlap=128, t0=0, plot_spec = T, normalize = F, return_data = F,...){
+  
+  library(signal)
+  library(oce)
+  
+  # extract signal
+  snd = data@left
+  
+  # demean to remove DC offset
+  snd = snd-mean(snd)
+  
+  # determine duration
+  dur = length(snd)/data@samp.rate
+  
+  # create spectrogram
+  spec = specgram(x = snd,
+                  n = nfft,
+                  Fs = data@samp.rate, 
+                  window = window, 
+                  overlap = overlap
+  )
+  
+  # discard phase info
+  P = abs(spec$S)
+  
+  # normalize
+  if(normalize){
+    P = P/max(P)  
+  }
+  
+  # convert to dB
+  P = 10*log10(P)
+  
+  # config time axis
+  if(t0==0){
+    t = as.numeric(spec$t)
+  } else {
+    t = as.POSIXct(spec$t, origin = t0)
+  }
+  
+  # rename freq
+  f = spec$f
+  
+  if(plot_spec){
+    
+    # change plot colour defaults
+    par(bg = &quot;black&quot;)
+    par(col.lab=&quot;white&quot;) 
+    par(col.axis=&quot;white&quot;)
+    par(col.main=&quot;white&quot;)
+    
+    # plot spectrogram
+    imagep(t,f, t(P), col = oce.colorsViridis, drawPalette = T, 
+           ylab = &#39;Frequency [Hz]&#39;, axes = F,...)
+    
+    box(col = &#39;white&#39;)
+    axis(2, labels = T, col = &#39;white&#39;)
+    
+    # add x axis
+    if(t0==0){
+      
+      axis(1, labels = T, col = &#39;white&#39;)
+      
+    }else{
+      
+      axis.POSIXct(seq.POSIXt(t0, t0+dur, 10), side = 1, format = &#39;%H:%M:%S&#39;, col = &#39;white&#39;, las = 1)
+      mtext(paste0(format(t0, &#39;%B %d, %Y&#39;)), side = 1, adj = 0, line = 2, col = &#39;white&#39;)
+      
+    }
+  }
+  
+  if(return_data){
+    
+    # prep output
+    spec = list(
+      t = t,
+      f = f,
+      p = t(P)
+    )
+    
+    return(spec)  
+  }
+}</code></pre>
+</div>
+<div id="test-it" class="section level2">
+<h2>Test it!</h2>
+<p>Here’s the function in action on the same data file</p>
+<pre class="r"><code># call the spectrogram function
+spectro(data, 
+        nfft=1024, 
+        window=256, 
+        overlap=128, 
+        t0=as.POSIXct(&#39;2014-01-02 11:01:58&#39;), 
+        plot_spec = T, 
+        normalize = T, 
+        return_data = F
+)</code></pre>
+<p><img src="/post/2018-03-02-plotting-a-spectogram-in-r_files/figure-html/test-1.png" width="672" /></p>
+</div>
+
+    </div>
+
+    
+
+
+<div class="article-tags">
+  
+  <a class="btn btn-primary btn-outline" href="/tags/bioacoustics">Bioacoustics</a>
+  
+</div>
+
+
+
+
+    
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="powered-by">
+
+      &copy; Hansen Johnson 2018 &middot; 
+
+      Powered by the
+      <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a>,
+      <a href="https://bookdown.org/yihui/blogdown/" target="_blank" rel="noopener">blogdown</a>, and
+      <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>
+
+
+      <span class="pull-right" aria-hidden="true">
+        <a href="#" id="back_to_top">
+          <span class="button_icon">
+            <i class="fa fa-chevron-up fa-2x"></i>
+          </span>
+        </a>
+      </span>
+
+    </p>
+  </div>
+</footer>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close btn-large" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Cite</h4>
+      </div>
+      <div>
+        <pre><code class="modal-body tex"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary btn-outline js-copy-cite" href="#" target="_blank">
+          <i class="fa fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-primary btn-outline js-download-cite" href="#" target="_blank">
+          <i class="fa fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha512-iztkobsvnjKfAtTNdHkGVjAYTrrtlC7mGp/54c40wowO7LhURYl3gVzzcEqGl/qKXQltJ2HwMrdLcNUdo+N/RQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+    
+    
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    
+      
+      
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+      
+
+      
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+      
+
+      
+
+      <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+
+  </body>
+</html>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Hansen Johnson</title>
+    <link>/project/</link>
+    <description>Recent content in Projects on Hansen Johnson</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Hansen Johnson 2018</copyright>
+    <lastBuildDate>Tue, 28 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Baleen whale habitat partitioning</title>
+      <link>/project/multispecies-habitat/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/multispecies-habitat/</guid>
+      <description>Quick summary Slocum gliders are very powerful tools for research and monitoring. They can swim around the ocean for weeks to months at a time in any weather, collecting reems of data at a fraction of the cost of a research vessel. These qualities have made the Slocum glider the workhorse of our lab at Dalhousie. We, as part of the WHaLE project, have been working with OTN and MEOPAR since 2014 to use our collective glider fleet to monitor for baleen whale species in Atlantic Canada.</description>
+    </item>
+    
+    <item>
+      <title>Real-time detection range</title>
+      <link>/project/detection-range/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/detection-range/</guid>
+      <description>Quick summary Passive acoustics (i.e., &amp;ldquo;listening&amp;rdquo;) has become an important tool for monitoring marine mammals. The use of passive acoustic monitoring, or PAM, is typically motivated by the fact that hydrophones are persistent (can record for long periods, regardless of conditions) and inexpensive compared to vessel-based surveys.
+One of the pervasive challenges in passive acoustic monitoring, especially for baleen whales, is that it is extremely difficult to know how far you can hear calls underwater.</description>
+    </item>
+    
+    <item>
+      <title>Right whale feeding in the Gulf of St Lawrence</title>
+      <link>/project/gsl-zooplankton/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/gsl-zooplankton/</guid>
+      <description>The southern Gulf of St Lawrence (GSL) has recently emerged as a &amp;ldquo;hotspot&amp;rdquo; for North Atlantic right whales. More than half of the known population was observed there over the course of the summer in 2017. While this is clearly an area of importance for the species, it&amp;rsquo;s worth emphasizing that we simply don&amp;rsquo;t know if their use of this area is new. Surveys of the area only began in earnest in 2015.</description>
+    </item>
+    
+    <item>
+      <title>Right whale sonobuoy surveys</title>
+      <link>/project/sonobuoys/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/sonobuoys/</guid>
+      <description>Quick summary Aerial surveys are one of the most important sources of information on the distribution of protected species in the NW Atlantic. They are particular helpful for right whale surveys, as the photographs taken during aerial surveys contribute to the right whale photo ID catalogue, an incredible resource that allows the research community to track and understand this population better than that of just about any other baleen whale species.</description>
+    </item>
+    
+  </channel>
+</rss>

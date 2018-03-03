@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hansen Johnson on Hansen Johnson</title>
+    <link>/</link>
+    <description>Recent content in Hansen Johnson on Hansen Johnson</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Hansen Johnson 2018</copyright>
+    <lastBuildDate>Sun, 15 Oct 2017 00:00:00 -0400</lastBuildDate>
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Projects</title>
+      <link>/projects/hero/</link>
+      <pubDate>Sun, 15 Oct 2017 00:00:00 -0400</pubDate>
+      
+      <guid>/projects/hero/</guid>
+      <description>&lt;p&gt;I am currently involved in both &lt;a href=&#34;#research&#34;&gt;research&lt;/a&gt; and &lt;a href=&#34;#data-visualization&#34;&gt;data visualization&lt;/a&gt; projects. Check them out below!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Research</title>
+      <link>/projects/research/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data visualization</title>
+      <link>/projects/data-visualization/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/data-visualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/about/about/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/about/about/</guid>
+      <description>
+
+&lt;h1 id=&#34;about-me&#34;&gt;About me&lt;/h1&gt;
+
+&lt;p&gt;My name is Hansen Johnson. I&amp;rsquo;m a PhD student at Dalhousie University, and a guest student at the
+Woods Hole Oceanographic Institution where I work with
+&lt;a href=&#34;http://fishocean.ocean.dal.ca/about/&#34; target=&#34;_blank&#34;&gt;Dr. Chris Taggart&lt;/a&gt; and
+&lt;a href=&#34;http://www.whoi.edu/sbl/liteSite.do?litesiteid=5252&#34; target=&#34;_blank&#34;&gt;Dr. Mark Baumgartner&lt;/a&gt;
+respectively. I study baleen whale acoustics and habitat ecology in the Northwest Atlantic.
+My goals for this website are to 1) share some aspects of my
+&lt;a href=&#34;/projects/#research&#34;&gt;research&lt;/a&gt; and 2) contribute some code and advice to the vast
+repository of online knowledge that I so often turn to for help. If you&amp;rsquo;re interested in any of this stuff, don&amp;rsquo;t hesitate to &lt;a href=&#34;/contact/&#34;&gt;get in touch!&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Sync GitHub repository with existing R project</title>
+      <link>/post/sync-github-repository-with-existing-r-project/</link>
+      <pubDate>Sat, 03 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/sync-github-repository-with-existing-r-project/</guid>
+      <description>
+
+&lt;p&gt;Many of the &lt;code&gt;R&lt;/code&gt; projects I start don&amp;rsquo;t pan out and end up in a scrap directory somewhere, but once in awhile I make enough progress to get worried that I&amp;rsquo;ll lose track of it. That&amp;rsquo;s when I know it&amp;rsquo;s time to get it up on GitHub. This post is mostly just a way for me to remember how to get an existing R project on GitHub. I&amp;rsquo;m sure there are better ways of doing this in the command line, but I&amp;rsquo;m still pretty new to Git so I&amp;rsquo;m sticking with what I know works. Perhaps I&amp;rsquo;ll add a command line version later.&lt;/p&gt;
+
+&lt;p&gt;This is loosely based on &lt;a href=&#34;https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html&#34; target=&#34;_blank&#34;&gt;this nice tutorial&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;step-1-create-a-github-repository&#34;&gt;Step 1: create a GitHub repository&lt;/h2&gt;
+
+&lt;p&gt;Easy. Go to your github account and click the button to create a new repo. I typically do not initialize with the &lt;code&gt;.gitignore&lt;/code&gt;, &lt;code&gt;readme.md&lt;/code&gt;, or &lt;code&gt;license.md&lt;/code&gt; files, but add them myself manually after the project is up and running.&lt;/p&gt;
+
+&lt;h2 id=&#34;step-2-enable-git-in-rstudio&#34;&gt;Step 2: enable git in Rstudio&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Spectrograms in R</title>
+      <link>/post/spectrograms-in-r/</link>
+      <pubDate>Fri, 02 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/spectrograms-in-r/</guid>
+      <description>&lt;p&gt;The spectrogram is one of the most important tools in a bioacoustician’s arsenal. They can help us see what we do not or cannot hear. I generate and plot spectrograms in a variety of ways. Typically, I turn to Audacity if I want to plot something up quickly, Raven to make a few quick measurements or annotations, and Matlab for anything more detailed. This is all fine and good, but recently I’ve had a few projects that require producing some nice looking spectrograms in &lt;code&gt;R&lt;/code&gt;. Given that I’m a big fan of &lt;code&gt;R&lt;/code&gt;, and of spectrograms, I thought this would make a good first post for my new website.&lt;/p&gt;
+&lt;p&gt;I should emphasize that this post is more cookbook than concept; there are many other reasources available to learn the nitty gritty details about spectrograms. For more background I’d start at the fantastic &lt;a href=&#34;https://dosits.org/&#34;&gt;DOSITS&lt;/a&gt; webpage.&lt;/p&gt;
+&lt;div id=&#34;read-an-audio-file&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Read an audio file&lt;/h2&gt;
+&lt;p&gt;First we have to find a signal to plot. I’m going to take an example of a right whale upcall we recorded off the Scotian Shelf a couple years ago, but &lt;em&gt;hopefully&lt;/em&gt; this will work for any &lt;code&gt;.wav&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tuneR, warn.conflicts = F, quietly = T) # nice functions for reading and manipulating .wav files
+
+# define path to audio file
+fin = &amp;#39;~/Data/sound_examples/example_packages/sound_examples/right_whale_upcall1.wav&amp;#39;
+
+# read in audio file
+data = readWave(fin)
+
+# extract signal
+snd = data@left
+
+# determine duration
+dur = length(snd)/data@samp.rate
+dur # seconds
+## [1] 3.588
+
+# determine sample rate
+fs = data@samp.rate
+fs # Hz
+## [1] 2000&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plot-waveform&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plot waveform&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# demean to remove DC offset
+snd = snd - mean(snd)
+
+# plot waveform
+plot(snd, type = &amp;#39;l&amp;#39;, xlab = &amp;#39;Samples&amp;#39;, ylab = &amp;#39;Amplitude&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-03-02-spectrograms-in-r_files/figure-html/waveform-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;define-spectrogram-parameters&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Define spectrogram parameters&lt;/h2&gt;
+&lt;p&gt;The next step is to define the parameters used to construct the spectrogram. What each parameter is and how to choose them appropriately is the topic for another discussion. I’ll just pick some reasonable values as a demonstration.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# number of points to use for the fft
+nfft=1024
+
+# window size (in points)
+window=256
+
+# overlap (in points)
+overlap=128&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plot-the-spectrogram&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plot the spectrogram&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(signal, warn.conflicts = F, quietly = T) # signal processing functions
+library(oce, warn.conflicts = F, quietly = T) # image plotting functions and nice color maps
+
+# create spectrogram
+spec = specgram(x = snd,
+                n = nfft,
+                Fs = fs,
+                window = window,
+                overlap = overlap
+)
+
+# discard phase information
+P = abs(spec$S)
+
+# normalize
+P = P/max(P)
+
+# convert to dB
+P = 10*log10(P)
+
+# config time axis
+t = spec$t
+
+# plot spectrogram
+imagep(x = t,
+       y = spec$f,
+       z = t(P),
+       col = oce.colorsViridis,
+       ylab = &amp;#39;Frequency [Hz]&amp;#39;,
+       xlab = &amp;#39;Time [s]&amp;#39;,
+       drawPalette = T,
+       decimate = F
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-03-02-spectrograms-in-r_files/figure-html/main-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;That’s it! Happy plotting :)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bonus-functionize-it&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Bonus: functionize it&lt;/h2&gt;
+&lt;p&gt;Here’s an example of how to put everything above into a tidy plotting function. I’ve made a few changes here that were specific to my application at the time:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The main data input is a &lt;code&gt;Formal class Wave&lt;/code&gt; object in R (i.e. input from &lt;code&gt;tuneR&lt;/code&gt;), but you could easily change things around to accept the path to a &lt;code&gt;.wav&lt;/code&gt; file.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If the &lt;code&gt;t0&lt;/code&gt; input is 0, the time axis is in seconds elapsed since the start of the file, but you can also pass a &lt;code&gt;POSIXct&lt;/code&gt; value to display the time/date.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I have included switches to optionally plot the spectrogram (&lt;code&gt;plot_spec&lt;/code&gt;), normalize the waveform (&lt;code&gt;normalize&lt;/code&gt;), and/or return the spectrogram data (&lt;code&gt;return_data&lt;/code&gt;).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;...&lt;/code&gt; means that I can pass additional arguments to the &lt;code&gt;imagep()&lt;/code&gt; plotting function&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I took some stylistic liberties and chose to create a spectrogram against a dark background, just because I like the way it looks&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;spectro = function(data, nfft=1024, window=256, overlap=128, t0=0, plot_spec = T, normalize = F, return_data = F,...){
+
+  library(signal)
+  library(oce)
+
+  # extract signal
+  snd = data@left
+
+  # demean to remove DC offset
+  snd = snd-mean(snd)
+
+  # determine duration
+  dur = length(snd)/data@samp.rate
+
+  # create spectrogram
+  spec = specgram(x = snd,
+                  n = nfft,
+                  Fs = data@samp.rate,
+                  window = window,
+                  overlap = overlap
+  )
+
+  # discard phase info
+  P = abs(spec$S)
+
+  # normalize
+  if(normalize){
+    P = P/max(P)  
+  }
+
+  # convert to dB
+  P = 10*log10(P)
+
+  # config time axis
+  if(t0==0){
+    t = as.numeric(spec$t)
+  } else {
+    t = as.POSIXct(spec$t, origin = t0)
+  }
+
+  # rename freq
+  f = spec$f
+
+  if(plot_spec){
+
+    # change plot colour defaults
+    par(bg = &amp;quot;black&amp;quot;)
+    par(col.lab=&amp;quot;white&amp;quot;)
+    par(col.axis=&amp;quot;white&amp;quot;)
+    par(col.main=&amp;quot;white&amp;quot;)
+
+    # plot spectrogram
+    imagep(t,f, t(P), col = oce.colorsViridis, drawPalette = T,
+           ylab = &amp;#39;Frequency [Hz]&amp;#39;, axes = F,...)
+
+    box(col = &amp;#39;white&amp;#39;)
+    axis(2, labels = T, col = &amp;#39;white&amp;#39;)
+
+    # add x axis
+    if(t0==0){
+
+      axis(1, labels = T, col = &amp;#39;white&amp;#39;)
+
+    }else{
+
+      axis.POSIXct(seq.POSIXt(t0, t0+dur, 10), side = 1, format = &amp;#39;%H:%M:%S&amp;#39;, col = &amp;#39;white&amp;#39;, las = 1)
+      mtext(paste0(format(t0, &amp;#39;%B %d, %Y&amp;#39;)), side = 1, adj = 0, line = 2, col = &amp;#39;white&amp;#39;)
+
+    }
+  }
+
+  if(return_data){
+
+    # prep output
+    spec = list(
+      t = t,
+      f = f,
+      p = t(P)
+    )
+
+    return(spec)  
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;test-it&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Test it!&lt;/h3&gt;
+&lt;p&gt;Here’s the function in action on the same data file&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# call the spectrogram function
+spectro(data,
+        nfft=1024,
+        window=256,
+        overlap=128,
+        t0=as.POSIXct(&amp;#39;2014-01-02 11:01:58&amp;#39;),
+        plot_spec = T,
+        normalize = T,
+        return_data = F
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-03-02-spectrograms-in-r_files/figure-html/test-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Baleen whale habitat partitioning</title>
+      <link>/project/multispecies-habitat/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/multispecies-habitat/</guid>
+      <description>
+
+&lt;h2 id=&#34;quick-summary&#34;&gt;Quick summary&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.whoi.edu/main/slocum-glider&#34; target=&#34;_blank&#34;&gt;Slocum gliders&lt;/a&gt; are very powerful tools for research and monitoring. They can swim around the ocean for weeks to months at a time in any weather, collecting reems of data at a fraction of the cost of a research vessel. These qualities have made the Slocum glider the workhorse of our lab at Dalhousie. We, as part of the &lt;a href=&#34;http://meopar.ca/research/project/whale-whales-habitat-and-listening-experiment&#34; target=&#34;_blank&#34;&gt;WHaLE&lt;/a&gt; project, have been working with &lt;a href=&#34;http://gliders.oceantrack.org/&#34; target=&#34;_blank&#34;&gt;OTN&lt;/a&gt; and &lt;a href=&#34;http://meopar.ca&#34; target=&#34;_blank&#34;&gt;MEOPAR&lt;/a&gt; since 2014 to use our collective glider fleet to monitor for baleen whale species in Atlantic Canada. Each of our gliders is deployed with at least 1) a CTD to measure the physical properties (salinity, temperature, and depth) of the water, and 2) a &lt;a href=&#34;http://dcs.whoi.edu/&#34; target=&#34;_blank&#34;&gt;DMON-LFDCS&lt;/a&gt; hydrophone system to monitor and report the sounds of baleen whales in near real-time.&lt;/p&gt;
+
+&lt;p&gt;Conservation is a major goal of all these deployments. The results from the acoustic monitoring allow us to dynamically react to whale detections in near real-time. The whale detections are currently delivered to regulators to inform management decisions, and we&amp;rsquo;re working hard to also distribute them to fishers, vessel operators, and others on the water so they may take actions to avoid harming these at-risk species.&lt;/p&gt;
+
+&lt;p&gt;These glider missions also (presumably) contain a lot of information about whale ecology. The goal of this project is to combine the physical and biological information recorded over the course of each deployment to better understand how each monitored species (right, fin, sei, and humpback whales) interact with their ocean environments.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LiveGlider</title>
+      <link>/data-visualization/liveglider/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/data-visualization/liveglider/</guid>
+      <description>&lt;p&gt;Here&amp;rsquo;s a description of this project&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Real-time detection range</title>
+      <link>/project/detection-range/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/detection-range/</guid>
+      <description>
+
+&lt;h2 id=&#34;quick-summary&#34;&gt;Quick summary&lt;/h2&gt;
+
+&lt;p&gt;Passive acoustics (i.e., &amp;ldquo;listening&amp;rdquo;) has become an important tool for monitoring marine mammals. The use of passive acoustic monitoring, or PAM, is typically motivated by the fact that hydrophones are persistent (can record for long periods, regardless of conditions) and inexpensive compared to vessel-based surveys.&lt;/p&gt;
+
+&lt;p&gt;One of the pervasive challenges in passive acoustic monitoring, especially for baleen whales, is that it is extremely difficult to know how far you can hear calls underwater. Baleen whales (e.g., blue, fin, right, humpback; the big ones) make very loud, very low calls that, under the right conditions, can propagate 10s to 100s of kilometers. The range over which these calls can be detected (by another whale, or hydrophone) depends largely on the type and quality of the call, the depth of the water, the physical properties of the water (temperature, salinity, etc), the type and structure of the bottom, ambient noise levels, and more.&lt;/p&gt;
+
+&lt;p&gt;Even though it&amp;rsquo;s complicated, it&amp;rsquo;s very important to understand how far we are able to detect whales if we hope to interpret our monitoring results correctly. The main goal of this project is to conduct an experiment that allows us to determine the range-dependent accuracy of the &lt;a href=&#34;http://dcs.whoi.edu&#34; target=&#34;_blank&#34;&gt;LFDCS real-time monitoring system&lt;/a&gt; on mobile (glider) and fixed (buoy) platforms.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Right whale feeding in the Gulf of St Lawrence</title>
+      <link>/project/gsl-zooplankton/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/gsl-zooplankton/</guid>
+      <description>&lt;p&gt;The southern Gulf of St Lawrence (GSL) has recently emerged as a &amp;ldquo;hotspot&amp;rdquo; for North Atlantic right whales. More than half of the known population was observed there over the course of the summer in 2017. While this is clearly an area of importance for the species, it&amp;rsquo;s worth emphasizing that we simply don&amp;rsquo;t know if their use of this area is new. Surveys of the area only began in earnest in 2015. Before that there&amp;rsquo;s almost no dedicated survey data. I suspect they have been visiting the region for a long time, but perhaps have been using it more in recent years.&lt;/p&gt;
+
+&lt;p&gt;One hypothesis is that changes in the availability of their zooplankton prey has driven right whales into the southern GSL to feed. I joined teams from the &lt;a href=&#34;http://www.andersoncabotcenterforoceanlife.org/&#34; target=&#34;_blank&#34;&gt;New England Aquarium&lt;/a&gt; and the &lt;a href=&#34;https://www.canadianwhaleinstitute.ca/&#34; target=&#34;_blank&#34;&gt;Canadian Whale Institute&lt;/a&gt; aboard the &lt;em&gt;Shelagh&lt;/em&gt; to help with their visual survey effort, and opportunistically collect net samples of zooplankton near right whales to try to better understand their foraging ecology in the region.&lt;/p&gt;
+
+&lt;div align=&#34;middle&#34;&gt;
+  &lt;img src=&#34;/img/joe.jpg&#34; width=&#34;60%&#34;&gt;
+  We miss you Joe.  
+&lt;/div&gt;  
+</description>
+    </item>
+    
+    <item>
+      <title>Right whale sonobuoy surveys</title>
+      <link>/project/sonobuoys/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/sonobuoys/</guid>
+      <description>
+
+&lt;h2 id=&#34;quick-summary&#34;&gt;Quick summary&lt;/h2&gt;
+
+&lt;p&gt;Aerial surveys are one of the most important sources of information on the distribution of protected species in the NW Atlantic. They are particular helpful for right whale surveys, as the photographs taken during aerial surveys contribute to the right whale photo ID catalogue, an incredible resource that allows the research community to track and understand this population better than that of just about any other baleen whale species.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://www.nefsc.noaa.gov/psb/&#34; target=&#34;_blank&#34;&gt;protected species branch&lt;/a&gt; of the NE fisheries science center flies many right whale surveys throughout the Gulf of Maine and Atlantic Canada. Usually their surveys seek to find an aggregation of right whales, then circle the group until they have photographed every individual. In 2017 they added an acoustic component to their survey efforts, and began deploying sonobuoys prior to circling an aggregation. Sonobuoys are disposable hydrophones that can be dropped from planes. They transmit audio data via radio, which allows the survey team in the plane to wirelessly record sounds in the water as they circle and photograph the group of whales.&lt;/p&gt;
+
+&lt;p&gt;The goal of this project is to compare what the survey team sees with what the sonobuoys record to see if there&amp;rsquo;s any relationship between the demographic composition or behavioral state of the group and the sounds that they make. Our hope is that we can use this information to better understand how to compare results from visual and acoustic surveys, and also make some inferences about the behavioral context of different types of calls.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>WhaleMap</title>
+      <link>/data-visualization/whalemap/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/data-visualization/whalemap/</guid>
+      <description>&lt;p&gt;Here&amp;rsquo;s a description of this project&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Characterizing the range-dependent accuracy of a near real-time baleen whale monitoring system [poster]</title>
+      <link>/talk/2018_osm/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 -0500</pubDate>
+      
+      <guid>/talk/2018_osm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Using Ocean Gliders to Evaluate the Partitioning of a Shallow Coastal Basin Habitat by Baleen Whales in the Northwest Atlantic</title>
+      <link>/talk/2017_smm/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 -0500</pubDate>
+      
+      <guid>/talk/2017_smm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tracking whales on the Scotian Shelf using passive acoustic monitoring on ocean gliders</title>
+      <link>/publication/2016-glider-pam/</link>
+      <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/publication/2016-glider-pam/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
