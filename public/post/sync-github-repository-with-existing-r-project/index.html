@@ -325,13 +325,46 @@
 
 <p>Many of the <code>R</code> projects I start don&rsquo;t pan out and end up in a scrap directory somewhere, but once in awhile I make enough progress to get worried that I&rsquo;ll lose track of it. That&rsquo;s when I know it&rsquo;s time to get it up on GitHub. This post is mostly just a way for me to remember how to get an existing R project on GitHub. I&rsquo;m sure there are better ways of doing this in the command line, but I&rsquo;m still pretty new to Git so I&rsquo;m sticking with what I know works. Perhaps I&rsquo;ll add a command line version later.</p>
 
-<p>This is loosely based on <a href="https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html" target="_blank">this nice tutorial</a>.</p>
+<p>This is loosely based on the combination of <a href="https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html" target="_blank">this</a> and <a href="http://cfss.uchicago.edu/git05.html" target="_blank">this</a> tutorial.</p>
 
 <h2 id="step-1-create-a-github-repository">Step 1: create a GitHub repository</h2>
 
 <p>Easy. Go to your github account and click the button to create a new repo. I typically do not initialize with the <code>.gitignore</code>, <code>readme.md</code>, or <code>license.md</code> files, but add them myself manually after the project is up and running.</p>
 
 <h2 id="step-2-enable-git-in-rstudio">Step 2: enable git in Rstudio</h2>
+
+<ol>
+<li><p>Open your project in Rstudio and navigate to <em>Tools</em> -&gt; <em>Version Control</em> -&gt; <em>Project Setup</em></p></li>
+
+<li><p>Click <em>SVN/Git</em> tab and select <em>git</em> as the version control system. It will ask you to initialize a new git repo and restart Rstudio</p></li>
+
+<li><p>After Rstudio reopens, confirm that there is a <em>Git</em> tab in the environment pane (which for me, and I think by default, is in the upper right of the IDE)</p></li>
+</ol>
+
+<h2 id="step-3-synchronize-with-the-github-repo">Step 3: synchronize with the github repo</h2>
+
+<p>Open a terminal and do the following:</p>
+
+<pre><code># move to the project directory
+cd Projects/website
+
+# initiate the upstream tracking of the project on the GitHub repo
+git remote add origin https://github.com/hansenjohnson/website.git
+
+# pull all files from the GitHub repo (typically just readme, license, gitignore)
+git pull origin master
+
+# set up GitHub repo to track changes on local machine
+git push -u origin master
+</code></pre>
+
+<h2 id="step-4-push-files-to-github">Step 4: push files to GitHub</h2>
+
+<p>Click the <em>Git</em> tab in Rstudio, and then click <em>Commit</em>. This will open a window where you can stage files to be tracked (and synced on GitHub). Select all the files you would like to track, write a commit message, then click <em>push</em>. This will send all changes to the GitHub repo.</p>
+
+<h2 id="step-5-up-and-running">Step 5: up and running</h2>
+
+<p>All you need to do now is remember to commit changes and push them to the GitHub repo. Don&rsquo;t forget!</p>
 
     </div>
 

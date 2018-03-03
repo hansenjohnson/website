@@ -9,6 +9,7 @@ tags: []
 header:
   caption: ''
   image: ''
+summary: Instructions (mostly for me) to create a GitHub repository for an existing R project, and then use Rstudio to manage version control.
 ---
 
 Many of the `R` projects I start don't pan out and end up in a scrap directory somewhere, but once in awhile I make enough progress to get worried that I'll lose track of it. That's when I know it's time to get it up on GitHub. This post is mostly just a way for me to remember how to get an existing R project on GitHub. I'm sure there are better ways of doing this in the command line, but I'm still pretty new to Git so I'm sticking with what I know works. Perhaps I'll add a command line version later.
