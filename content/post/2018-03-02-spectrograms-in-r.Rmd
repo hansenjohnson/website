@@ -28,7 +28,7 @@ First we have to find a signal to plot. I'm going to take an example of a right 
 library(tuneR, warn.conflicts = F, quietly = T) # nice functions for reading and manipulating .wav files
 
 # define path to audio file
-fin = '~/Data/sound_examples/example_packages/sound_examples/right_whale_upcall1.wav'
+fin = '~/Data/online_sound_examples/right_whale_upcall1.wav'
 
 # read in audio file
 data = readWave(fin)
