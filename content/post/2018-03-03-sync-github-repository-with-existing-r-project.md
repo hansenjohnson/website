@@ -52,4 +52,12 @@ Click the *Git* tab in Rstudio, and then click *Commit*. This will open a window
 
 All you need to do now is remember to commit changes and push them to the GitHub repo. Don't forget!
 
+## Extra: removing a tracked directory
 
+I inevitably track a folder that I'd prefer to keep off of GitHub. That directory, hypothetically called `/public` for this example, can be easily removed using:
+
+```
+git rm -r --cached public
+```
+
+Then commit the changes, push, and you're all done!
