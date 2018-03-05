@@ -15,7 +15,7 @@ summary: Quick example of how to embed an html widget, in this case a map, into 
   webpage
 ---
 
-Here's a quick example for how to embed an html widget, in this case an interactive map of right whale survey results, into any webpage. Simply copy and paste the following `html` line into the webpage (html or md) where you would like the map to show up. This makes use of two different `html` tags, an `iframe`, which allows you to embed content, and a `div` which basically lets you define certain aspects of the things inside it (in this case, it's used to center the iframe). For more information on these and other tags, and much more, check out the great resources at [w3schools.com](https://www.w3schools.com/)
+Here's a quick example for how to embed an html widget, in this case an interactive map of right whale survey results, into any webpage. Simply copy and paste the following `html` line into the webpage (html or md) where you would like the map to show up, and you're good to go!
 
 ```
 <div align="center">
@@ -27,4 +27,6 @@ Here's a quick example for how to embed an html widget, in this case an interact
   <iframe src="https://leviathan.ocean.dal.ca/server_index/whale_map.html" width="80%" height="540"></iframe>
 </div>
 
-That's it! Now you can easily add that map, or any other html widgets with a known url, to any webpage! For more information about this map in particular, check out our lab's [data visualization webpage](http://leviathan.ocean.dal.ca/).
+That's it! Now you can easily add that map, or any other html widgets with a known url, to any webpage! 
+
+This makes use of two different `html` tags, an `iframe`, which allows you to embed content, and a `div` which basically lets you define certain aspects of the things inside it (in this case, it's used to center the iframe). For more information on these and other tags, and much more, check out the great resources at [w3schools.com](https://www.w3schools.com/). For more details about this map, check out our lab's [data visualization webpage](http://leviathan.ocean.dal.ca/).
