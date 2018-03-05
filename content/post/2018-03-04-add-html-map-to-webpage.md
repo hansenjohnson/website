@@ -3,9 +3,8 @@ title: Add html map widget to webpage
 author: Hansen Johnson
 date: '2018-03-04'
 categories:
-  - Code
-tags:
   - data-visualization
+tags:
   - html
 slug: add-html-map-to-webpage
 header:
