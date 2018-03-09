@@ -15,7 +15,7 @@ summary: "Step-by-step instructions for creating and plotting acoustic spectrogr
 knitr::opts_chunk$set(collapse = TRUE, warning = FALSE)
 ```
 
-The spectrogram is one of the most important tools in a bioacoustician's arsenal. They can help us see what we do not or cannot hear. I generate and plot spectrograms in a variety of ways. Typically, I turn to Audacity if I want to plot something up quickly, Raven to make a few quick measurements or annotations, and Matlab for anything more detailed. This is all fine and good, but recently I've had a few projects that require producing some nice looking spectrograms in `R`. Given that I'm a big fan of `R`, and of spectrograms, I thought this would make a good first post for my new website.
+The spectrogram is one of the most important tools in a bioacoustician's arsenal. They allow us 'see' sound, which helps us quickly review large datasets or find patterns that we don't or can't hear. I generate and plot spectrograms in a variety of ways. Typically, I turn to Audacity if I want to plot something up quickly, Raven to make a few quick measurements or annotations, and Matlab for anything more detailed. This is all fine and good, but recently I've had a few projects that require producing some nice looking spectrograms in `R`. Given that I'm a big fan of `R`, and of spectrograms, I thought this would make a good first post for my new website.
 
 I should emphasize that this post is more cookbook than concept; there are many other reasources available to learn the nitty gritty details about spectrograms. For more background I'd start at the fantastic [DOSITS](https://dosits.org/) webpage.
 
