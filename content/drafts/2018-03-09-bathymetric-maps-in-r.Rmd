@@ -1,0 +1,141 @@
+---
+title: Bathymetric maps in R
+author: Hansen Johnson
+date: '2018-06-09'
+slug: bathymetric-maps-in-r
+categories:
+  - R
+tags:
+  - plots
+---
+
+There are many, many ways to make maps in R. In the last year or so I've become a big fan of leaflet and the R package `rleaflet` that makes these maps a breeze to build in R. Leaflet makes pretty online interactive maps, but doesn't provide a great option for a static map like you would put in a publication. I've jumped around between a few different methods for making static maps, and have found it difficult to settle on one in particular. I've talked to a few friends about this and they've had similar issues, so I thought it'd be worth digging a little deeper. My plan for this post is to review and compare a few different options for making static maps in R. I'm going to focus on making maps for my own work (oceanography), which usually include some combination of contours (bathymetry), lines, points, and polygons.
+
+Here are the different packages I'll be using:
+* `marmap`
+  * image
+  * plain
+* `oce`
+  * projected
+  * not projected
+* `ggmap`
+
+## Get data
+
+Step one is to get the data that we'll be plotting.
+
+``` {r data}
+
+# get bathymetry data
+library(marmap, warn.conflicts = F, quietly = T)
+b = getNOAA.bathy(lon1 = -68, lon2 = -62, lat1 = 40, lat2 = 44, resolution = 1) 
+
+# get trackline data
+lon = c(-65.17536, -65.37423, -65.64541, -66.06122, -66.15161)
+lat = c(43.30837, 42.94679, 42.87448, 42.92871, 42.72985)
+lin = cbind.data.frame(lon, lat)
+
+# get point data (a few random points)
+lon = c(-65.3, -65.7, -64.1)
+lat = c(43.4, 43, 42.9)
+pts = cbind.data.frame(lon, lat)
+
+# get polygon data (roseway basin critical habitat area)
+ply = rbind.data.frame(c(-64.916667, 43.266667),
+      c(-64.983333, 42.783333),
+      c(-65.516667, 42.65),
+      c(-66.083333, 42.866667))
+colnames(ply) = c('lon', 'lat')
+
+```
+
+## marmap
+
+``` {r marmap}
+
+# basic marmap
+plot(b)
+points(pts, pch = 16, col = 'red')
+lines(lin, col = 'blue')
+polygon(ply, lty = 2)
+
+# improved bathymetric contours
+
+plot(b, deepest.isobath = -200, shallowest.isobath = -50, step = 50, drawlabels = T, land = F, lwd = 0.1)
+plot(b, deep = 0, shallow = 0, step = 0, lwd = 1, add = TRUE)
+
+points(pts, pch = 16, col = 'red')
+lines(lin, col = 'blue')
+polygon(ply, lty = 2)
+
+# coloured image
+
+# Creating a custom palette of blues
+blues <- c("lightsteelblue4", "lightsteelblue3",
+"lightsteelblue2", "lightsteelblue1")
+
+plot(b, deepest.isobath = -200, shallowest.isobath = -50, step = 50, drawlabels = T, land = T, lwd = 0.1,
+     bpal = list(c(0, max(b), "grey"), c(min(b),0,blues)), image = T)
+plot(b, deep = 0, shallow = 0, step = 0, lwd = 1, add = TRUE)
+
+points(pts, pch = 16, col = 'red')
+lines(lin, col = 'blue')
+polygon(ply, lty = 2)
+
+```
+
+The `marmap` package has a lot of useful tools (particularly `getNOAA.bathy()`), but I've never quite been satisfied with the look of the maps. My biggest issue is that the margins of the plot are never clean.
+
+## oce
+
+``` {r oce}
+
+library(oce)
+library(ocedata)
+data("coastlineWorldFine")
+
+# convert bathy
+bathyLon = as.numeric(rownames(b))
+bathyLat = as.numeric(colnames(b))
+bathyZ = as.numeric(b)
+dim(bathyZ) = dim(b)
+# bathyZ[bathyZ > 0] = NA # to blank out the land
+
+# plotting region
+mlon = mean(ply$lon)
+mlat = mean(ply$lat)
+span = 300
+
+# unprojected
+
+# plot coastline
+plot(coastlineWorldFine, clon = mlon, clat = mlat, span = span)
+
+# plot bathymetry
+contour(bathyLon,bathyLat,bathyZ,levels = c(-50, -100, -150, -200, -250),lwd = c(1, 1, 2, 2, 3),lty = c(3, 1, 3, 1, 3),drawlabels = F,add = TRUE,col = 'darkgray')
+
+# add depth legend
+legend("bottomright",lwd = c(1, 1, 2, 2, 3),lty = c(3, 1, 3, 1, 3),col = 'darkgray',seg.len = 3,cex = 0.8,title = "Depth [m]",legend = c("50", "100", "150", "200", "250"),bg= "white")
+
+points(pts, pch = 16, col = 'red')
+lines(lin, col = 'blue')
+polygon(ply, lty = 2)
+
+# projected
+
+# plot coastline
+plot(coastlineWorldFine, clon = mlon, clat = mlat, span = 200, projection="+proj=merc")
+
+# plot bathymetry
+mapContour(bathyLon,bathyLat,bathyZ,levels = c(-50, -100, -150, -200, -250),lwd = c(1, 1, 2, 2, 3),lty = c(3, 1, 3, 1, 3),col = 'darkgray')
+
+# add depth legend
+legend("bottomright",lwd = c(1, 1, 2, 2, 3),lty = c(3, 1, 3, 1, 3),col = 'darkgray',seg.len = 3,cex = 0.7,title = "Depth [m]",legend = c("50", "100", "150", "200", "250"),bg= "white")
+
+mapPoints(longitude = pts$lon, latitude = pts$lat, pch = 16, col = 'red')
+mapLines(longitude = lin$lon, latitude = lin$lat, col = 'blue')
+mapPolygon(longitude = ply$lon, latitude = ply$lat, lty = 2)
+
+```
+
+## ggmap
