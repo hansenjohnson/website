@@ -22,7 +22,6 @@ Here's an overview of some of the indispensable tools and resources that I use t
 [Audacity](http://www.audacityteam.org/): Open source software for multitrack recording and editing. This is my go to for quick playing, formatting, and visualizing audio data.
 
 ***
-***
 
 # Code
 
@@ -33,7 +32,6 @@ Here's an overview of some of the indispensable tools and resources that I use t
 [cmocean](http://matplotlib.org/cmocean/): beautiful colormaps for oceanographic variables, and easily implemented from `oce`. As a quasi-colorblind person I tend to be pretty picky about colormaps and find these fantastic. I use them for all of my section plots.
 
 ***
-***
 
 # Report Writing  
 
@@ -41,7 +39,6 @@ Here's an overview of some of the indispensable tools and resources that I use t
 
 [Beamer Theme Matrix](https://hartwork.org/beamer-theme-matrix/): Good resource for trying out different themes for presentations using LaTeX
 
-***
 ***
 
 # Text editing
@@ -51,13 +48,11 @@ Here's an overview of some of the indispensable tools and resources that I use t
 [Atom](https://atom.io/): Github's fantastic open source text editor / IDE. This thing can do just about anything: project management, version control, text editing, coding and more. It's open source development and spirit has encouraged people to develop tons of packages to expand its capabilities to do just about anything you want.
 
 ***
-***
 
 # Reference Management
 
 [Mendeley](https://www.mendeley.com/): Powerful tool for managing references
 
-***
 ***
 
 # Going to sea
