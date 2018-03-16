@@ -12,6 +12,7 @@ R packages, software, websites, textbooks, etc that are helpful
 
 ## Ideas for future posts
 * Bathymetric maps in R
+* Convert from LaTeX to MS Word (`latex2rtf`)
 * Logistic regression in R  
 * LDA in R  
 * Plotting bathymetric maps in R  

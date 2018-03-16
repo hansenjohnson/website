@@ -261,14 +261,19 @@ defaultContentLanguageInSubdir = false
   weight = 6
 
 [[menu.main]]
+  name = "Tools"
+  url = "/tools/"
+  weight = 7
+
+[[menu.main]]
   name = "About"
   url = "/about/"
-  weight = 7
+  weight = 8
 
 [[menu.main]]
   name = "Contact"
   url = "/contact/"
-  weight = 8
+  weight = 9
 
 # Taxonomies.
 [taxonomies]
