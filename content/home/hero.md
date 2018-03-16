@@ -24,4 +24,12 @@ weight = 3
 #  label = '<i class="fa fa-download"></i> Install Now' -->
 +++
 
-Hello and welcome to my website! There's a lot of information here about <a href="/about/">me</a>, my <a href="/projects/#research">research</a>, some of the <a href="/tools/">tools</a> I use, and a few <a href="/post/">posts</a> about things I think are worth remembering or sharing. Enjoy!
+<!-- Hello and welcome to my website! There's a lot of information here about <a href="/about/">me</a>, my <a href="/projects/#research">research</a>, some of the <a href="/tools/">tools</a> I use, and a few <a href="/post/">posts</a> about things I think are worth remembering or sharing. Enjoy! -->
+
+<div align='center'>
+
+  <h4 style="color:white">
+    Hello and welcome to my website! There's a lot of information here about <a style="color:rgb(20, 22, 34)" href="/about/">me</a>, my <a style="color:rgb(20, 22, 34)"  href="/projects/#research">research</a>, some of the <a style="color:rgb(20, 22, 34)" href="/tools/">tools</a> I use, and a few <a style="color:rgb(20, 22, 34)" href="/post/">posts</a> about things I think are worth remembering or sharing. Enjoy!
+  </h4>
+
+</div>

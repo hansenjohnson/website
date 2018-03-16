@@ -17,8 +17,8 @@ weight = 10
 
 <div align='center'>
 
-  <h3>
+  <h4>
     Hello and welcome to my website! There's a lot of information here about <a href="/about/">me</a>, my <a href="/projects/#research">research</a>, some of the <a href="/tools/">tools</a> I use, and a few <a href="/post/">posts</a> about things I think are worth remembering or sharing. Enjoy!
-  </h3>
+  </h4>
 
 </div>
