@@ -123,17 +123,43 @@ gg = ggmap(ggm) +
   geom_point(data = pts, colour = &quot;black&quot;, fill = &quot;red&quot;, stroke = 1, size = 2, alpha = 0.7, shape = 21)+
   ylab(&quot;&quot;)+xlab(&quot;&quot;)
 
+# adjust theme for nicely plotting in markdown (white axis labs and transparent bg)
+gg = gg + theme(axis.text=element_text(colour=&quot;gray&quot;))+
+  theme(plot.background = element_rect(fill = &quot;transparent&quot;,colour = NA))
+
 # show map
 gg</code></pre>
 <p><img src="/post/2018-03-09-bathymetric-maps-in-r_files/figure-html/ggmap-1.png" width="672" /></p>
-<p>I think this map looks beautiful. I particularly like how easily it allows me to overlay data on satellite imagery from Google. This is a relatively new discovery for me, and is something that I’ll likely start using more often.</p>
-<p>My biggest issue is that I haven’t been able to find an elegent way to add labels to the contour lines in a <code>ggmap</code> / <code>ggplot2</code> framework. There are ways to do this in <code>ggplot2</code> (like with the <code>direct.label</code> package), but these fail with projected data used in <code>ggmap</code>. Perhaps I’ll file an issue with the developers soon to see if they can shed any light.</p>
+<p>Pretty nice, eh?. I particularly like how easily it allows me to overlay data on Google satellite imagery. This is a relatively new discovery for me, and is something that I’ll likely start using more often.</p>
+<p>My biggest issue with this map is that I haven’t been able to find an elegent way to add labels to the contour lines in a <code>ggmap</code> / <code>ggplot2</code> framework. There are ways to do this in <code>ggplot2</code> (like with the <code>direct.label</code> package), but these fail with projected data used in <code>ggmap</code>. Perhaps I’ll file an issue with the developers to see if they can shed any light.</p>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
 <p>Both <code>oce</code> and <code>ggmap</code> offer simple, accurate, and elegent tools for plotting bathymetric data. I’m still new to <code>ggmap</code>, but I’m quite impressed with its capabilities. I suspect I’ll continue to use <code>oce</code> for quickly plotting results on the fly, but will definitely begin to use and explore <code>ggmap</code> for presentation and publication quality visuals.</p>
 <hr />
 <!-- ## Extras -->
+<!-- ### ggmap background tile options -->
+<!-- Here are a few examples of other kinds of backgrounds. For a better overview of the background options and other plotting functions, check out this nice [cheatsheet](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/ggmap/ggmapCheatsheet.pdf). -->
+<!-- ``` {r ggmap-bg} -->
+<!-- plot_ggmap = function(ggm){ -->
+<!--   gg = ggmap(ggm) +  -->
+<!--   geom_contour(data = bf, aes(x=x, y=y, z=z), -->
+<!--                breaks=seq(-50,-250,-50), -->
+<!--                colour="white", size=0.1)+ -->
+<!--   geom_polygon(data = ply, color = "black", alpha = 0.3) + -->
+<!--   geom_line(data = lin, color = "blue", alpha = 0.8) + -->
+<!--   geom_point(data = pts, colour = "black", fill = "red", stroke = 1, size = 2, alpha = 0.7, shape = 21)+ -->
+<!--   ylab("")+xlab("") -->
+<!--   return(gg) -->
+<!-- } -->
+<!-- # get raster background map data -->
+<!-- ggm1 = get_map(location = ll_mean,  maptype = "hybrid", source = "google", zoom = 8, color = 'bw') -->
+<!-- plot_ggmap(ggm1) -->
+<!-- ggm2 = get_map(location = ll_mean,  maptype = "toner-background", source = "stamen", zoom = 8) -->
+<!-- plot_ggmap(ggm2) -->
+<!-- ggm3 = get_map(location = ll_mean,  maptype = "watercolor", source = "stamen", zoom = 8) -->
+<!-- plot_ggmap(ggm3) -->
+<!-- ``` -->
 <!-- ### ggmap links -->
 <!-- A nice overview of plotting, though this guys knows nothing about projections and uses rainbow prolifically so I'd be cautious. -->
 <!-- http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html -->

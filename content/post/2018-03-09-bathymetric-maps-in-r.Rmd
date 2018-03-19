@@ -114,7 +114,7 @@ mapPolygon(longitude = ply$lon, latitude = ply$lat, lty = 2)
 
 `ggmap` is the `tidyverse` answer for plotting spatial data in `R`. As a result, it doesn't use `R`'s basic graphical functions, but uses the grammer of graphics syntax of `ggplot2`. It offers a lot of powerful features, and the potential to make maps that look really, really nice. Here's a quick example:
 
-``` {r ggmap}
+``` {r ggmap, dev.args = list(bg = 'transparent')}
 library(ggmap)
 library(ggplot2)
 
@@ -137,13 +137,17 @@ gg = ggmap(ggm) +
   geom_point(data = pts, colour = "black", fill = "red", stroke = 1, size = 2, alpha = 0.7, shape = 21)+
   ylab("")+xlab("")
 
+# adjust theme for nicely plotting in markdown (white axis labs and transparent bg)
+gg = gg + theme(axis.text=element_text(colour="gray"))+
+  theme(plot.background = element_rect(fill = "transparent",colour = NA))
+
 # show map
 gg
 ```
 
-I think this map looks beautiful. I particularly like how easily it allows me to overlay data on satellite imagery from Google. This is a relatively new discovery for me, and is something that I'll likely start using more often. 
+Pretty nice, eh?. I particularly like how easily it allows me to overlay data on Google satellite imagery. This is a relatively new discovery for me, and is something that I'll likely start using more often. 
 
-My biggest issue is that I haven't been able to find an elegent way to add labels to the contour lines in a `ggmap` / `ggplot2` framework. There are ways to do this in `ggplot2` (like with the `direct.label` package), but these fail with projected data used in `ggmap`. Perhaps I'll file an issue with the developers soon to see if they can shed any light.
+My biggest issue with this map is that I haven't been able to find an elegent way to add labels to the contour lines in a `ggmap` / `ggplot2` framework. There are ways to do this in `ggplot2` (like with the `direct.label` package), but these fail with projected data used in `ggmap`. Perhaps I'll file an issue with the developers to see if they can shed any light.
 
 ## Summary
 
@@ -152,6 +156,36 @@ Both `oce` and `ggmap` offer simple, accurate, and elegent tools for plotting ba
 ***
 
 <!-- ## Extras -->
+
+<!-- ### ggmap background tile options -->
+
+<!-- Here are a few examples of other kinds of backgrounds. For a better overview of the background options and other plotting functions, check out this nice [cheatsheet](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/ggmap/ggmapCheatsheet.pdf). -->
+
+<!-- ``` {r ggmap-bg} -->
+
+<!-- plot_ggmap = function(ggm){ -->
+<!--   gg = ggmap(ggm) +  -->
+<!--   geom_contour(data = bf, aes(x=x, y=y, z=z), -->
+<!--                breaks=seq(-50,-250,-50), -->
+<!--                colour="white", size=0.1)+ -->
+<!--   geom_polygon(data = ply, color = "black", alpha = 0.3) + -->
+<!--   geom_line(data = lin, color = "blue", alpha = 0.8) + -->
+<!--   geom_point(data = pts, colour = "black", fill = "red", stroke = 1, size = 2, alpha = 0.7, shape = 21)+ -->
+<!--   ylab("")+xlab("") -->
+
+<!--   return(gg) -->
+<!-- } -->
+
+<!-- # get raster background map data -->
+<!-- ggm1 = get_map(location = ll_mean,  maptype = "hybrid", source = "google", zoom = 8, color = 'bw') -->
+<!-- plot_ggmap(ggm1) -->
+
+<!-- ggm2 = get_map(location = ll_mean,  maptype = "toner-background", source = "stamen", zoom = 8) -->
+<!-- plot_ggmap(ggm2) -->
+
+<!-- ggm3 = get_map(location = ll_mean,  maptype = "watercolor", source = "stamen", zoom = 8) -->
+<!-- plot_ggmap(ggm3) -->
+<!-- ``` -->
 
 <!-- ### ggmap links -->
 
