@@ -53,7 +53,7 @@ defaultContentLanguageInSubdir = false
   name = "Hansen Johnson"
   role = "PhD Student in Biological Oceanography"
   description = "Hansen Johnson's personal website"
-  
+
   # Organizations/Affiliations.
   #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
   organizations = [ { name = "Dalhousie University", url = "" } ]
@@ -144,7 +144,7 @@ defaultContentLanguageInSubdir = false
   #   https://sourcethemes.com/academic/post/writing-markdown-latex/#highlighting-options
   highlight = true
   highlight_languages = ["r"]
-  highlight_style = "monokai"
+  highlight_style = "xcode"
 
   # Enable native social sharing buttons?
   sharing = false
