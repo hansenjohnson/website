@@ -122,7 +122,7 @@ library(ggplot2)
 ll_mean = c(mean(pts$lon), mean(pts$lat))
 
 # get raster background map data
-ggm = get_map(location = ll_mean,  maptype = "satellite", source = "google", zoom = 8, color = 'bw')
+ggm = get_map(location = ll_mean,  maptype = "satellite", source = "google", zoom = 8)
 
 # convert bathymetry to data frame
 bf = fortify.bathy(b)
@@ -141,7 +141,7 @@ gg = ggmap(ggm) +
 gg
 ```
 
-I think this map looks beautiful. I particularly like how easily it allows me to overlay data on greyscale satellite imagery from Google. This is a relatively new discovery for me, and is something that I'll likely start using more often. 
+I think this map looks beautiful. I particularly like how easily it allows me to overlay data on satellite imagery from Google. This is a relatively new discovery for me, and is something that I'll likely start using more often. 
 
 My biggest issue is that I haven't been able to find an elegent way to add labels to the contour lines in a `ggmap` / `ggplot2` framework. There are ways to do this in `ggplot2` (like with the `direct.label` package), but these fail with projected data used in `ggmap`. Perhaps I'll file an issue with the developers soon to see if they can shed any light.
 
