@@ -15,6 +15,7 @@ summary: A comparison between `oce` and `ggmap` for plotting simple maps with co
 
 <p>There are a number of different ways to make basic maps in R. In the last year or so I’ve become a big fan of <a href="http://leafletjs.com/">leaflet</a> and the <a href="https://rstudio.github.io/leaflet/">R leaflet</a> package that makes these maps a breeze to build in <code>R</code>. Leaflet makes very nice online interactive maps, but doesn’t provide a great option for a static map like you would put in a publication or presentation. I’ve jumped around between a few different methods for making static maps, but for the purposes of this post I’ll focus on the two that I like and use most.</p>
 <p>The first method uses the <a href="http://dankelley.github.io/oce/">oce</a> package, developed primarily by Dan Kelley and Clark Richards at my native Dalhousie. The second uses the <a href="https://github.com/dkahle/ggmap">ggmap</a> package, which is the brainchild of Hadley Wickham and other developers of the <a href="https://www.tidyverse.org/">tidyverse</a>. My plan is to present simple reproducible examples for each map making method to show how to use them to display basic types of spatial data: contours (bathymetry), lines, points, and polygons.</p>
+<hr />
 <div id="get-data" class="section level2">
 <h2>Get data</h2>
 <p>Step one is to get the data that we’ll be plotting. A very handy tool for this is the <code>getNOAA.bathy()</code> function from the <a href="https://cran.r-project.org/web/packages/marmap/index.html">marmap</a> package, which, perhaps not surprisingly, gets user-selected bathymetric data from the NOAA ETOPO database. There are a number of other great functions within <code>marmap</code>, but, for reasons I won’t get into here, I’ve never quite been satisfied with using it to make maps. Anyway, here’s the data I’ll be using:</p>
@@ -42,6 +43,7 @@ ply = rbind.data.frame(c(-64.916667, 43.266667),
       c(-65.516667, 42.65),
       c(-66.083333, 42.866667))
 colnames(ply) = c(&#39;lon&#39;, &#39;lat&#39;)</code></pre>
+<hr />
 </div>
 <div id="oce" class="section level2">
 <h2>oce</h2>
@@ -77,7 +79,7 @@ points(pts, pch = 16, col = &#39;red&#39;)
 lines(lin, col = &#39;blue&#39;)
 polygon(ply, lty = 2)</code></pre>
 <p><img src="/post/2018-03-09-bathymetric-maps-in-r_files/figure-html/oce-1.png" width="672" /></p>
-<p>When the need arises for a projection, the <code>oce</code> package has an impressive number available. Check out Dan Kelley’s blog post for a full list. Plotting projected data is slower and a little bit clunkier because you need to use <code>oce</code> custom functions (e.g., <code>mapPoints()</code>, <code>mapLines()</code>, etc), but in my experience this tends to work well. I can’t say the resulting maps are spectacularly pretty, but they’re very accurate and theoretically quite customizable if there’s something you’d like to change or add. Here’s what that looks like:</p>
+<p>When the need arises for a projection, the <code>oce</code> package has an impressive number available. Check out <a href="https://dankelley.github.io/r/2015/04/03/oce-proj.html">Dan’s blog post</a> for a full list. Plotting projected data is slower and a little bit clunkier because you need to use <code>oce</code> custom functions (e.g., <code>mapPoints()</code>, <code>mapLines()</code>, etc), but in my experience this tends to work well. I can’t say the resulting maps are spectacularly pretty, but they’re very accurate and theoretically quite customizable if there’s something you’d like to change or add. Here’s what that looks like:</p>
 <pre class="r"><code># --- projected ---#
 
 # plot coastline
@@ -98,7 +100,7 @@ mapPolygon(longitude = ply$lon, latitude = ply$lat, lty = 2)</code></pre>
 </div>
 <div id="ggmap" class="section level2">
 <h2>ggmap</h2>
-<p><code>ggmap</code> is the <code>tidyverse</code> answer to plotting spatial data in <code>R</code>. As a result, it doesn’t use <code>R</code>’s basic graphical functions, but uses the grammer of graphics syntax of <code>ggplot2</code>. It offers a lot of powerful features, and the potential to make maps that look really, really nice. Here’s a quick example:</p>
+<p><code>ggmap</code> is the <code>tidyverse</code> answer for plotting spatial data in <code>R</code>. As a result, it doesn’t use <code>R</code>’s basic graphical functions, but uses the grammer of graphics syntax of <code>ggplot2</code>. It offers a lot of powerful features, and the potential to make maps that look really, really nice. Here’s a quick example:</p>
 <pre class="r"><code>library(ggmap)
 library(ggplot2)
 

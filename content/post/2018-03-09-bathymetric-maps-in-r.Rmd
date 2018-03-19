@@ -19,6 +19,8 @@ There are a number of different ways to make basic maps in R. In the last year o
 
 The first method uses the [oce](http://dankelley.github.io/oce/) package, developed primarily by Dan Kelley and Clark Richards at my native Dalhousie. The second uses the [ggmap](https://github.com/dkahle/ggmap) package, which is the brainchild of Hadley Wickham and other developers of the [tidyverse](https://www.tidyverse.org/). My plan is to present simple reproducible examples for each map making method to show how to use them to display basic types of spatial data: contours (bathymetry), lines, points, and polygons.
 
+***
+
 ## Get data
 
 Step one is to get the data that we'll be plotting. A very handy tool for this is the `getNOAA.bathy()` function from the [marmap](https://cran.r-project.org/web/packages/marmap/index.html) package, which, perhaps not surprisingly, gets user-selected bathymetric data from the NOAA ETOPO database. There are a number of other great functions within `marmap`, but, for reasons I won't get into here, I've never quite been satisfied with using it to make maps. Anyway, here's the data I'll be using:
@@ -46,6 +48,8 @@ ply = rbind.data.frame(c(-64.916667, 43.266667),
       c(-66.083333, 42.866667))
 colnames(ply) = c('lon', 'lat')
 ```
+
+***
 
 ## oce
 
@@ -84,7 +88,7 @@ lines(lin, col = 'blue')
 polygon(ply, lty = 2)
 ```
 
-When the need arises for a projection, the `oce` package has an impressive number available. Check out Dan Kelley's blog post for a full list. Plotting projected data is slower and a little bit clunkier because you need to use `oce` custom functions (e.g., `mapPoints()`, `mapLines()`, etc), but in my experience this tends to work well. I can't say the resulting maps are spectacularly pretty, but they're very accurate and theoretically quite customizable if there's something you'd like to change or add. Here's what that looks like:
+When the need arises for a projection, the `oce` package has an impressive number available. Check out [Dan's blog post](https://dankelley.github.io/r/2015/04/03/oce-proj.html) for a full list. Plotting projected data is slower and a little bit clunkier because you need to use `oce` custom functions (e.g., `mapPoints()`, `mapLines()`, etc), but in my experience this tends to work well. I can't say the resulting maps are spectacularly pretty, but they're very accurate and theoretically quite customizable if there's something you'd like to change or add. Here's what that looks like:
 
 ``` {r oce-proj}
 # --- projected ---#
@@ -108,7 +112,7 @@ mapPolygon(longitude = ply$lon, latitude = ply$lat, lty = 2)
 
 ## ggmap
 
-`ggmap` is the `tidyverse` answer to plotting spatial data in `R`. As a result, it doesn't use `R`'s basic graphical functions, but uses the grammer of graphics syntax of `ggplot2`. It offers a lot of powerful features, and the potential to make maps that look really, really nice. Here's a quick example:
+`ggmap` is the `tidyverse` answer for plotting spatial data in `R`. As a result, it doesn't use `R`'s basic graphical functions, but uses the grammer of graphics syntax of `ggplot2`. It offers a lot of powerful features, and the potential to make maps that look really, really nice. Here's a quick example:
 
 ``` {r ggmap}
 library(ggmap)
