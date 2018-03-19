@@ -1,0 +1,242 @@
+---
+title: Bathymetric maps in R
+author: Hansen Johnson
+date: '2018-03-19'
+categories:
+  - R
+tags:
+  - plots
+slug: bathymetric-maps-in-r
+draft: no
+summary: A comparison between `oce` and `ggmap` for plotting simple maps with contours (bathymetry), lines, points, and polygons
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, warning = FALSE, message = FALSE)
+```
+
+There are a number of different ways to make basic maps in R. In the last year or so I've become a big fan of [leaflet](http://leafletjs.com/) and the [R leaflet](https://rstudio.github.io/leaflet/) package that makes these maps a breeze to build in `R`. Leaflet makes very nice online interactive maps, but doesn't provide a great option for a static map like you would put in a publication or presentation. I've jumped around between a few different methods for making static maps, but for the purposes of this post I'll focus on the two that I like and use most. 
+
+The first method uses the [oce](http://dankelley.github.io/oce/) package, developed primarily by Dan Kelley and Clark Richards at my native Dalhousie. The second uses the [ggmap](https://github.com/dkahle/ggmap) package, which is the brainchild of Hadley Wickham and other developers of the [tidyverse](https://www.tidyverse.org/). My plan is to present simple reproducible examples for each map making method to show how to use them to display basic types of spatial data: contours (bathymetry), lines, points, and polygons.
+
+## Get data
+
+Step one is to get the data that we'll be plotting. A very handy tool for this is the `getNOAA.bathy()` function from the [marmap](https://cran.r-project.org/web/packages/marmap/index.html) package, which, perhaps not surprisingly, gets user-selected bathymetric data from the NOAA ETOPO database. There are a number of other great functions within `marmap`, but, for reasons I won't get into here, I've never quite been satisfied with using it to make maps. Anyway, here's the data I'll be using:
+
+``` {r data}
+library(marmap)
+
+# get bathymetry data
+b = getNOAA.bathy(lon1 = -68, lon2 = -62, lat1 = 40, lat2 = 45, resolution = 1)
+
+# make a simple track line
+lon = c(-65.17536, -65.37423, -65.64541, -66.06122, -66.15161)
+lat = c(43.30837, 42.94679, 42.87448, 42.92871, 42.72985)
+lin = cbind.data.frame(lon, lat)
+
+# make a few points
+lon = c(-65.3, -65.7, -64.1)
+lat = c(43.4, 43, 42.9)
+pts = cbind.data.frame(lon, lat)
+
+# build a polygon (in this case the 'Roseway Basin Area To Be Avoided')
+ply = rbind.data.frame(c(-64.916667, 43.266667),
+      c(-64.983333, 42.783333),
+      c(-65.516667, 42.65),
+      c(-66.083333, 42.866667))
+colnames(ply) = c('lon', 'lat')
+```
+
+## oce
+
+The following map with `oce` uses an un-projected cartesian coordinate system, which basically means that all plotting occurs as if the world were flat. Plotting in this way is quick and convenient, especially because it allows you to use all of `R`'s base graphic functions, but is not appropriate in all cases. I typically use this approach when plotting relatively small areas (maybe 10s of kilometers) and in circumstances where exact distances aren't crticially important.
+
+``` {r oce}
+library(oce)
+library(ocedata)
+data("coastlineWorldFine")
+
+# convert bathymetry
+bathyLon = as.numeric(rownames(b))
+bathyLat = as.numeric(colnames(b))
+bathyZ = as.numeric(b)
+dim(bathyZ) = dim(b)
+
+# define plotting region
+mlon = mean(pts$lon)
+mlat = mean(pts$lat)
+span = 300
+
+# --- unprojected --- #
+
+# plot coastline
+plot(coastlineWorldFine, clon = mlon, clat = mlat, span = span)
+
+# plot bathymetry
+contour(bathyLon,bathyLat,bathyZ,levels = c(-50, -100, -150, -200, -250),lwd = c(1, 1, 2, 2, 3),lty = c(3, 1, 3, 1, 3),drawlabels = F,add = TRUE,col = 'darkgray')
+
+# add depth legend
+legend("bottomright",lwd = c(1, 1, 2, 2, 3),lty = c(3, 1, 3, 1, 3),col = 'darkgray',seg.len = 3,cex = 0.8,title = "Depth [m]",legend = c("50", "100", "150", "200", "250"),bg= "white")
+
+# add map data
+points(pts, pch = 16, col = 'red')
+lines(lin, col = 'blue')
+polygon(ply, lty = 2)
+```
+
+When the need arises for a projection, the `oce` package has an impressive number available. Check out Dan Kelley's blog post for a full list. Plotting projected data is slower and a little bit clunkier because you need to use `oce` custom functions (e.g., `mapPoints()`, `mapLines()`, etc), but in my experience this tends to work well. I can't say the resulting maps are spectacularly pretty, but they're very accurate and theoretically quite customizable if there's something you'd like to change or add. Here's what that looks like:
+
+``` {r oce-proj}
+# --- projected ---#
+
+# plot coastline
+plot(coastlineWorldFine, clon = mlon, clat = mlat, span = 200, projection="+proj=merc")
+
+# plot bathymetry
+mapContour(bathyLon,bathyLat,bathyZ,levels = c(-50, -100, -150, -200, -250),lwd = c(1, 1, 2, 2, 3),lty = c(3, 1, 3, 1, 3),col = 'darkgray')
+
+# add depth legend
+legend("bottomright",lwd = c(1, 1, 2, 2, 3),lty = c(3, 1, 3, 1, 3),col = 'darkgray',seg.len = 3,cex = 0.7,title = "Depth [m]",legend = c("50", "100", "150", "200", "250"),bg= "white")
+
+# add map data
+mapPoints(longitude = pts$lon, latitude = pts$lat, pch = 16, col = 'red')
+mapLines(longitude = lin$lon, latitude = lin$lat, col = 'blue')
+mapPolygon(longitude = ply$lon, latitude = ply$lat, lty = 2)
+```
+
+***
+
+## ggmap
+
+`ggmap` is the `tidyverse` answer to plotting spatial data in `R`. As a result, it doesn't use `R`'s basic graphical functions, but uses the grammer of graphics syntax of `ggplot2`. It offers a lot of powerful features, and the potential to make maps that look really, really nice. Here's a quick example:
+
+``` {r ggmap}
+library(ggmap)
+library(ggplot2)
+
+# define center of map
+ll_mean = c(mean(pts$lon), mean(pts$lat))
+
+# get raster background map data
+ggm = get_map(location = ll_mean,  maptype = "satellite", source = "google", zoom = 8, color = 'bw')
+
+# convert bathymetry to data frame
+bf = fortify.bathy(b)
+
+# create map
+gg = ggmap(ggm) + 
+  geom_contour(data = bf, aes(x=x, y=y, z=z),
+               breaks=seq(-50,-250,-50),
+               colour="white", size=0.1)+
+  geom_polygon(data = ply, color = "black", alpha = 0.3) +
+  geom_line(data = lin, color = "blue", alpha = 0.8) +
+  geom_point(data = pts, colour = "black", fill = "red", stroke = 1, size = 2, alpha = 0.7, shape = 21)+
+  ylab("")+xlab("")
+
+# show map
+gg
+```
+
+I think this map looks beautiful. I particularly like how easily it allows me to overlay data on greyscale satellite imagery from Google. This is a relatively new discovery for me, and is something that I'll likely start using more often. 
+
+My biggest issue is that I haven't been able to find an elegent way to add labels to the contour lines in a `ggmap` / `ggplot2` framework. There are ways to do this in `ggplot2` (like with the `direct.label` package), but these fail with projected data used in `ggmap`. Perhaps I'll file an issue with the developers soon to see if they can shed any light.
+
+## Summary
+
+Both `oce` and `ggmap` offer simple, accurate, and elegent tools for plotting bathymetric data. I'm still new to `ggmap`, but I'm quite impressed with its capabilities. I suspect I'll continue to use `oce` for quickly plotting results on the fly, but will definitely begin to use and explore `ggmap` for presentation and publication quality visuals. 
+
+***
+
+<!-- ## Extras -->
+
+<!-- ### ggmap links -->
+
+<!-- A nice overview of plotting, though this guys knows nothing about projections and uses rainbow prolifically so I'd be cautious. -->
+<!-- http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html -->
+
+<!-- Very simple intro -->
+<!-- https://www.r-bloggers.com/how-to-plot-basic-maps-with-ggmap/ -->
+
+<!-- A nicely put together tutorial, with a good example of a contour map overlaid on a google map-like background. This kind of thing would be great for bathymetry... -->
+<!-- https://blog.dominodatalab.com/geographic-visualization-with-rs-ggmaps/ -->
+
+<!-- Great quick-start guide: -->
+<!-- https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/ggmap/ggmapCheatsheet.pdf -->
+
+<!-- ### Plot inset with `ggmap` -->
+
+<!-- I like the idea of being able to easily add an inset map to provide the viewer with some global context. I played around with `ggmap` for a little while and figured out a quick way to do just that. I haven't ironed out all the kinks (e.g., plot placement, highlighting, etc), but this should get the idea across. I know this is also possible with `oce`. If I find a need to do that soon I'll update this post. -->
+
+<!-- ``` {r inset} -->
+<!-- library(grid) -->
+
+<!-- # get raster tiles for inset map -->
+<!-- ins = get_map(location = ll_mean,  maptype = "satellite", source = "google", zoom = 4, color = 'bw') -->
+
+<!-- # extract plot dims -->
+<!-- lims = attr(ggm, 'bb') -->
+
+<!-- # create inset map -->
+<!-- ggins = ggmap(ins)+ -->
+<!--    annotate('rect', xmin=lims$ll.lon, ymin=lims$ll.lat, -->
+<!--             xmax=lims$ur.lon, ymax=lims$ur.lat, col="red", -->
+<!--             fill = NA)+ -->
+<!--   theme_inset() -->
+
+<!-- # combine inset map with existing plot -->
+<!-- GG = gg + inset(grob = ggplotGrob(ggins), -->
+<!--            xmin = -64.5, xmax = lims$ur.lon, -->
+<!--            ymin = lims$ll.lat, ymax = 42.5 -->
+<!--            ) -->
+
+<!-- # show map -->
+<!-- GG -->
+<!-- ``` -->
+
+<!-- ### Plots with `marmap` -->
+
+<!-- Here is an example of plotting simple bathymetric maps with `marmap`. My main issue has to do with the map margins. I can never seem to get them to match the plot area. I would guess that this can be corrected somehow, but I'm quite satisfied with my other plotting tools so I haven't pursued it much. Hopefully the below examples illustrate my point. -->
+
+<!-- ``` {r marmap} -->
+
+<!-- # --- basic ---# -->
+
+<!-- # plot map -->
+<!-- plot(b) -->
+
+<!-- # add data -->
+<!-- points(pts, pch = 16, col = 'red') -->
+<!-- lines(lin, col = 'blue') -->
+<!-- polygon(ply, lty = 2) -->
+
+<!-- # --- improved contours ---# -->
+
+<!-- # plot map -->
+<!-- plot(b, deepest.isobath = -200, shallowest.isobath = -50, step = 50, drawlabels = T, land = F, lwd = 0.1) -->
+
+<!-- # emphasize coastline -->
+<!-- plot(b, deep = 0, shallow = 0, step = 0, lwd = 1, add = TRUE) -->
+
+<!-- # add data -->
+<!-- points(pts, pch = 16, col = 'red') -->
+<!-- lines(lin, col = 'blue') -->
+<!-- polygon(ply, lty = 2) -->
+
+<!-- # --- coloured image ---# -->
+
+<!-- # create a custom palette of blues -->
+<!-- blues <- c("lightsteelblue4","lightsteelblue3","lightsteelblue2", "lightsteelblue1") -->
+
+<!-- # make map -->
+<!-- plot(b, deepest.isobath = -200, shallowest.isobath = -50, step = 50, drawlabels = T, land = T, lwd = 0.1, -->
+<!--      bpal = list(c(0, max(b), "grey"), c(min(b),0,blues)), image = T) -->
+
+<!-- # emphasize coastline -->
+<!-- plot(b, deep = 0, shallow = 0, step = 0, lwd = 1, add = TRUE) -->
+
+<!-- # add data -->
+<!-- points(pts, pch = 16, col = 'red') -->
+<!-- lines(lin, col = 'blue') -->
+<!-- polygon(ply, lty = 2) -->
+
+<!-- ``` -->
