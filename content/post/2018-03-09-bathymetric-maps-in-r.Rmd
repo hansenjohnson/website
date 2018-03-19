@@ -147,7 +147,7 @@ gg
 
 Pretty nice, eh?. I particularly like how easily it allows me to overlay data on Google satellite imagery. This is a relatively new discovery for me, and is something that I'll likely start using more often. 
 
-My biggest issue with this map is that I haven't been able to find an elegent way to add labels to the contour lines in a `ggmap` / `ggplot2` framework. There are ways to do this in `ggplot2` (like with the `direct.label` package), but these fail with projected data used in `ggmap`. Perhaps I'll file an issue with the developers to see if they can shed any light.
+My biggest issue with this map is that I haven't been able to find an elegant way to add labels to the contour lines. There are ways to do this in `ggplot2` (like with the `direct.label` package), but these fail with projected data used in `ggmap`. Perhaps I'll file an issue with the developers to see if they can shed any light.
 
 ## Summary
 
