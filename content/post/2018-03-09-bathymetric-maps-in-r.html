@@ -47,7 +47,7 @@ colnames(ply) = c(&#39;lon&#39;, &#39;lat&#39;)</code></pre>
 </div>
 <div id="oce" class="section level2">
 <h2>oce</h2>
-<p>The following map with <code>oce</code> uses an un-projected cartesian coordinate system, which basically means that all plotting occurs as if the world were flat. Plotting in this way is quick and convenient, especially because it allows you to use all of <code>R</code>’s base graphic functions, but is not appropriate in all cases. I typically use this approach when plotting relatively small areas (maybe 10s of kilometers) and in circumstances where exact distances aren’t crticially important.</p>
+<p>The following map with <code>oce</code> does not use a projection, which basically means that all plotting occurs as if the world were completely flat. Plotting in this way is quick and convenient, especially because it allows you to use all of <code>R</code>’s base graphic functions, but is not appropriate in many cases. I typically use this approach when plotting relatively small areas (maybe 10s of kilometers) and in circumstances where exact distances aren’t crticially important.</p>
 <pre class="r"><code>library(oce)
 library(ocedata)
 data(&quot;coastlineWorldFine&quot;)
@@ -79,7 +79,7 @@ points(pts, pch = 16, col = &#39;red&#39;)
 lines(lin, col = &#39;blue&#39;)
 polygon(ply, lty = 2)</code></pre>
 <p><img src="/post/2018-03-09-bathymetric-maps-in-r_files/figure-html/oce-1.png" width="672" /></p>
-<p>When the need arises for a projection, the <code>oce</code> package has an impressive number available. Check out <a href="https://dankelley.github.io/r/2015/04/03/oce-proj.html">Dan’s blog post</a> for a full list. Plotting projected data is slower and a little bit clunkier because you need to use <code>oce</code> custom functions (e.g., <code>mapPoints()</code>, <code>mapLines()</code>, etc), but in my experience this tends to work well. I can’t say the resulting maps are spectacularly pretty, but they’re very accurate and theoretically quite customizable if there’s something you’d like to change or add. Here’s what that looks like:</p>
+<p>When the need arises for a projection, as is often the case, the <code>oce</code> package has an impressive number available. Check out <a href="https://dankelley.github.io/r/2015/04/03/oce-proj.html">Dan’s blog post</a> for a full list. Plotting projected data is slower and a little bit clunkier because you need to use <code>oce</code> custom functions (e.g., <code>mapPoints()</code>, <code>mapLines()</code>, etc), but in my experience this tends to work well. I can’t say the resulting maps are spectacularly pretty, but they’re very accurate and theoretically quite customizable if there’s something you’d like to change or add. Here’s what that looks like:</p>
 <pre class="r"><code># --- projected ---#
 
 # plot coastline

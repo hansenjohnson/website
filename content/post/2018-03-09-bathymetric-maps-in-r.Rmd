@@ -53,7 +53,7 @@ colnames(ply) = c('lon', 'lat')
 
 ## oce
 
-The following map with `oce` uses an un-projected cartesian coordinate system, which basically means that all plotting occurs as if the world were flat. Plotting in this way is quick and convenient, especially because it allows you to use all of `R`'s base graphic functions, but is not appropriate in all cases. I typically use this approach when plotting relatively small areas (maybe 10s of kilometers) and in circumstances where exact distances aren't crticially important.
+The following map with `oce` does not use a projection, which basically means that all plotting occurs as if the world were completely flat. Plotting in this way is quick and convenient, especially because it allows you to use all of `R`'s base graphic functions, but is not appropriate in many cases. I typically use this approach when plotting relatively small areas (maybe 10s of kilometers) and in circumstances where exact distances aren't crticially important.
 
 ``` {r oce}
 library(oce)
@@ -88,7 +88,7 @@ lines(lin, col = 'blue')
 polygon(ply, lty = 2)
 ```
 
-When the need arises for a projection, the `oce` package has an impressive number available. Check out [Dan's blog post](https://dankelley.github.io/r/2015/04/03/oce-proj.html) for a full list. Plotting projected data is slower and a little bit clunkier because you need to use `oce` custom functions (e.g., `mapPoints()`, `mapLines()`, etc), but in my experience this tends to work well. I can't say the resulting maps are spectacularly pretty, but they're very accurate and theoretically quite customizable if there's something you'd like to change or add. Here's what that looks like:
+When the need arises for a projection, as is often the case, the `oce` package has an impressive number available. Check out [Dan's blog post](https://dankelley.github.io/r/2015/04/03/oce-proj.html) for a full list. Plotting projected data is slower and a little bit clunkier because you need to use `oce` custom functions (e.g., `mapPoints()`, `mapLines()`, etc), but in my experience this tends to work well. I can't say the resulting maps are spectacularly pretty, but they're very accurate and theoretically quite customizable if there's something you'd like to change or add. Here's what that looks like:
 
 ``` {r oce-proj}
 # --- projected ---#
