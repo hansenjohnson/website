@@ -33,7 +33,7 @@ data(coastlineWorld)
 data(endeavour)
 
 # plot full track
-mapPlot(coastlineWorld, type='l', proj='+proj=moll', col='lightgray')
+mapPlot(coastlineWorld, proj='+proj=moll', col='lightgray')
 mapPoints(endeavour$longitude, endeavour$latitude, pch=20, cex=2/3, col='red')
 ```
 

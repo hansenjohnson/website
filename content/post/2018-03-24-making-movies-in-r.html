@@ -29,7 +29,7 @@ data(coastlineWorld)
 data(endeavour)
 
 # plot full track
-mapPlot(coastlineWorld, type=&#39;l&#39;, proj=&#39;+proj=moll&#39;, col=&#39;lightgray&#39;)
+mapPlot(coastlineWorld, proj=&#39;+proj=moll&#39;, col=&#39;lightgray&#39;)
 mapPoints(endeavour$longitude, endeavour$latitude, pch=20, cex=2/3, col=&#39;red&#39;)</code></pre>
 <p><img src="/post/2018-03-24-making-movies-in-r_files/figure-html/data-1.png" width="672" /></p>
 <p>This kind of static map provides a nice global overview, but doesn’t give a great sense of how that the voyage progressed over time.</p>
