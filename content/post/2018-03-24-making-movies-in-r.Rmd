@@ -1,0 +1,132 @@
+---
+title: Making movies in R
+author: Hansen Johnson
+date: '2018-03-24'
+slug: making-movies-in-r
+categories:
+  - data-visualization
+  - R
+tags:
+  - plots
+draft: no
+editor_options: 
+  chunk_output_type: console
+summary: Use R and command line tools to create a movie from a series of plots.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Overview
+
+I often work with data that vary in both time and space. Underwater gliders, for example, move around as they explore the ocean for weeks to months at a time. Its likely that the ocean changes not only depending on where they go, but when they go there. So, changes in time and space are important, but can be very difficult to visualize with typical static plots. Interactive plots can be great tools for that kind of thing. Movies can help too. This post outlines a quick means of producing a movie in `R`.
+
+## Data
+
+I chose to create a simple 'gif' movie of the track of Captain Cook's voyage around the world on the HMS Endeavor. The data are available in the [ocedata](https://cran.r-project.org/web/packages/ocedata/ocedata.pdf) package.
+
+``` {r data}
+library(oce)
+library(ocedata)
+data(coastlineWorld)
+data(endeavour)
+
+# plot full track
+mapPlot(coastlineWorld, type='l', proj='+proj=moll', col='lightgray')
+mapPoints(endeavour$longitude, endeavour$latitude, pch=20, cex=2/3, col='red')
+```
+
+This kind of static map provides a nice global overview, but doesn't give a great sense of how that the voyage progressed over time.
+
+## Create temporary maps
+
+The next step is to generate timesteps spanning the entire voyage, then create a map of the ship track during each timestep and save it to a temporary file. [For the sake of concision the output is not shown in this post] 
+
+``` {r maps, eval=FALSE}
+# input parameters
+map_dir = 'figures' # directory for temporary maps
+outfile = 'static/movie.gif' # movie file (this could be several different file types)
+movie_speed = 5 # movie play speed
+
+# rename data
+df = endeavour
+
+# make maps ---------------------------------------------------------------
+if(!dir.exists(map_dir)){dir.create(map_dir)}
+
+# start and end times
+t0 = min(df$time)
+t1 = max(df$time)
+
+# time vector
+tseq = seq.POSIXt(t0, t1+31*60*60*24, by = 'month')
+
+# make and save maps
+for(it in 1:(length(tseq)-1)){
+  
+  # subset within timestep
+  it0 = tseq[it]
+  it1 = tseq[it+1]
+  idf = df[df$time >= it0 & df$time <= it1,]
+  
+  # open map file
+  png(paste0(map_dir,'/', as.character(format(it0, '%Y-%m-%d.png'))), 
+      width=6, height=6, unit="in", res=175, pointsize=10)
+  
+  # center map (only if ship moved)
+  if(nrow(idf)!=0){
+    mlat = idf$latitude[which.max(idf$time)]
+    mlon = idf$longitude[which.max(idf$time)]
+    p = paste0("+proj=ortho +lat_0=", mlat, " +lon_0=", mlon)  
+  }
+  
+  # plot
+  mapPlot(coastlineWorld, col = 'lightgrey', projection = p)
+  
+  # plot entire track
+  mapPoints(df$longitude,df$latitude, pch = 16, col = 'grey', cex = 1/3)
+  
+  # add current section
+  mapPoints(idf$longitude,idf$latitude, pch = 16, col = 'blue', cex = 2/3)
+  
+  # add latest
+  mapPoints(mlon,mlat, pch = 21, bg = 'red', cex = 1)
+  
+  # add timestamp
+  mtext(text = paste0(format(it1, '%b, %Y')), side = 3, line = 0, adj = 0)
+  
+  # start message
+  if(it==1){
+    title('Start!')
+  }
+  
+  # end message
+  if(it==length(tseq)-1){
+    title('Done!')
+  }
+  
+  # close and save plot
+  dev.off()
+  
+}
+```
+
+## Create movie
+
+Now you should have a directory full of monthly maps. The final step is to stitch all these maps together into a movie. In this case we're making a 'gif', but it can be any number of types of movie files. The way I do this requires us to step outside `R` and use the [imagemagick](https://imagemagick.org/script/index.php) command line tool. If you have a mac, imagemagick is easily installed with the [homebrew](https://brew.sh/) package manager using the command `brew install imagemagick` (see the full formula [here](http://brewformulas.org/Imagemagick)). The segment below assembles a system command to execute imagemagick's [convert](https://www.imagemagick.org/script/convert.php) function from within `R`.
+
+``` {r movie, eval=FALSE}
+# write system command
+cmd = paste0('convert -antialias -delay 1x', movie_speed, ' ', map_dir, '/*.png ', outfile)
+
+# execute system command
+system(cmd)
+
+# remove temporary files
+unlink(map_dir, recursive = T)
+```
+
+![](/post/2018-03-24-making-movies-in-r_files/movie.gif)
+
+There it is! It's not perfect, but it shows the voyage with an extra level of detail not available in the static map. This is, of course, a simple example but the same approach can be tweaked scaled to display much more complicated datasets. Enjoy!
