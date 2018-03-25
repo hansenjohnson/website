@@ -18,15 +18,25 @@ summary: Use R and command line tools to create a movie from a series of plots.
 
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>I often work with data that vary in both time and space. Underwater gliders, for example, move around as they explore the ocean for weeks to months at a time. Its likely that the ocean changes not only depending on where they go, but when they go there. So, changes in time and space are important, but can be very difficult to visualize with typical static plots. Interactive plots can be great tools for that kind of thing. Movies can help too. This post outlines a quick means of producing a movie in <code>R</code>.</p>
+<p>I often work with data that vary in both time and space. Underwater gliders, for example, move around as they explore the ocean for weeks to months at a time. The ocean they observe changes depending on where they go, and when they go there. This ‘spatiotemporal variation’ is often important to understand, but can be very difficult to visualize with typical static plots. Movies can help. This post outlines a quick means of producing a movie from plots created in <code>R</code>.</p>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
-<p>I chose to create a simple ‘gif’ movie of the track of Captain Cook’s voyage around the world on the HMS Endeavor. The data are available in the <a href="https://cran.r-project.org/web/packages/ocedata/ocedata.pdf">ocedata</a> package.</p>
+<p>For this example, I chose to create a simple ‘gif’ movie of the track of Captain Cook’s voyage around the world on the HMS Endeavor. The data are available in the <a href="https://cran.r-project.org/web/packages/ocedata/ocedata.pdf">ocedata</a> package. Here’s a quick look at the data:</p>
 <pre class="r"><code>library(oce)
 library(ocedata)
 data(coastlineWorld)
 data(endeavour)
+
+# summary of the endeavour dataset
+summary(endeavour)
+##       time                        latitude         longitude      
+##  Min.   :1768-08-26 00:00:00   Min.   :-60.067   Min.   :-178.02  
+##  1st Qu.:1769-01-06 18:00:00   1st Qu.:-35.746   1st Qu.:-118.09  
+##  Median :1769-08-21 12:00:00   Median :-22.767   Median : -37.95  
+##  Mean   :1769-12-11 14:40:52   Mean   :-14.465   Mean   : -48.98  
+##  3rd Qu.:1771-02-28 06:00:00   3rd Qu.:  4.908   3rd Qu.: -10.68  
+##  Max.   :1771-07-10 00:00:00   Max.   : 49.500   Max.   : 175.35
 
 # plot full track
 mapPlot(coastlineWorld, proj=&#39;+proj=moll&#39;, col=&#39;lightgray&#39;)
@@ -34,9 +44,9 @@ mapPoints(endeavour$longitude, endeavour$latitude, pch=20, cex=2/3, col=&#39;red
 <p><img src="/post/2018-03-24-making-movies-in-r_files/figure-html/data-1.png" width="672" /></p>
 <p>This kind of static map provides a nice global overview, but doesn’t give a great sense of how that the voyage progressed over time.</p>
 </div>
-<div id="create-temporary-maps" class="section level2">
-<h2>Create temporary maps</h2>
-<p>The next step is to generate timesteps spanning the entire voyage, then create a map of the ship track during each timestep and save it to a temporary file. [For the sake of concision the output is not shown in this post]</p>
+<div id="step-1-make-many-plots" class="section level2">
+<h2>Step 1: make many plots</h2>
+<p>The next step is to generate timesteps spanning the entire voyage, then create a map of the ship track during each timestep and save it to a temporary file. I chose a month long timestep to keep the numbers of plots reasonable. For the sake of concision the output (i.e. all 35 plots) is not shown in this post. I got a little fancy here and decided to use an <a href="https://en.wikipedia.org/wiki/Orthographic_projection">orthographic</a> map projection, but you could use just about any projection you like. It’s also worth noting again that this approach would work for any type of plot, not just maps.</p>
 <pre class="r"><code># input parameters
 map_dir = &#39;figures&#39; # directory for temporary maps
 outfile = &#39;static/movie.gif&#39; # movie file (this could be several different file types)
@@ -104,9 +114,9 @@ for(it in 1:(length(tseq)-1)){
   
 }</code></pre>
 </div>
-<div id="create-movie" class="section level2">
-<h2>Create movie</h2>
-<p>Now you should have a directory full of monthly maps. The final step is to stitch all these maps together into a movie. In this case we’re making a ‘gif’, but it can be any number of types of movie files. The way I do this requires us to step outside <code>R</code> and use the <a href="https://imagemagick.org/script/index.php">imagemagick</a> command line tool. If you have a mac, imagemagick is easily installed with the <a href="https://brew.sh/">homebrew</a> package manager using the command <code>brew install imagemagick</code> (see the full formula <a href="http://brewformulas.org/Imagemagick">here</a>). The segment below assembles a system command to execute imagemagick’s <a href="https://www.imagemagick.org/script/convert.php">convert</a> function from within <code>R</code>.</p>
+<div id="step-2-stitch-plots-into-movie" class="section level2">
+<h2>Step 2: stitch plots into movie</h2>
+<p>Now you should have a directory full of monthly maps. The final step is to stitch all these maps together into a movie. In this case we’re making a ‘gif’, but it can be any number of types of movie files. The way I do this requires us to step outside <code>R</code> and use the <a href="https://imagemagick.org/script/index.php">imagemagick</a> command line tool. If you have a mac, imagemagick is easily installed with the <a href="https://brew.sh/">homebrew</a> package manager using the command <code>brew install imagemagick</code> (see the full formula <a href="http://brewformulas.org/Imagemagick">here</a>). The segment below assembles a system command to execute imagemagick’s <a href="https://www.imagemagick.org/script/convert.php">convert</a> function from within <code>R</code>, then deletes the directory with all the temporary figures.</p>
 <pre class="r"><code># write system command
 cmd = paste0(&#39;convert -antialias -delay 1x&#39;, movie_speed, &#39; &#39;, map_dir, &#39;/*.png &#39;, outfile)
 
@@ -116,5 +126,5 @@ system(cmd)
 # remove temporary files
 unlink(map_dir, recursive = T)</code></pre>
 <p><img src="/post/2018-03-24-making-movies-in-r_files/movie.gif" /></p>
-<p>There it is! It’s not perfect, but it shows the voyage with an extra level of detail not available in the static map. This is, of course, a simple example but the same approach can be tweaked scaled to display much more complicated datasets. Enjoy!</p>
+<p>There it is! It’s not perfect, but it shows the voyage with an extra level of detail not available or obvious in the static map. Now we can see, for example, that he hung out for awhile in New Zealand (while charting the coast), and that we’re missing some data for his transit up the coast of Australia. It’s a simple example, but hopefully demonstrates the approach and how it may be refined or tweaked to work with other datasets.</p>
 </div>
