@@ -5,7 +5,7 @@ active = true
 date = "2016-04-20T00:00:00"
 
 title = "Data visualization"
-subtitle = "I often create interactive visualizations to explore and understand data. These examples are all built in [Shiny](https://shiny.rstudio.com/), and (most) are hosted on our [lab's shiny server](https://leviathan.ocean.dal.ca)."
+subtitle = "I often create interactive visualizations to explore and understand data. These examples are built in [Shiny](https://shiny.rstudio.com/)."
 
 # Order that this section will appear in.
 weight = 25
