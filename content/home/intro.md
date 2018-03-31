@@ -17,8 +17,12 @@ weight = 10
 
 <div align='left'>
 
-  <p style="font-size:1.5em">
-    Hello and welcome to my website! There's a lot of information here about <a href="/about/">me</a>, my <a href="/projects/#research">research</a>, some of the <a href="/tools/">tools</a> I use, and a few <a href="/post/">posts</a> about things I think are worth remembering or sharing. Hope you enjoy and feel free to <a href="/contact">get in touch</a>!
+  <p style="font-size:1.2em">
+    My name is Hansen Johnson. I'm a PhD student at Dalhousie University, and a guest student at the Woods Hole Oceanographic Institution where I'm advised by
+    <a href="http://fishocean.ocean.dal.ca/about/">Dr. Chris Taggart</a> and
+    <a href="http://www.whoi.edu/sbl/liteSite.do?litesiteid=5252">Dr. Mark Baumgartner</a>,
+    respectively. I study baleen whale acoustic and habitat ecology in the Northwest Atlantic. I use this site to share some aspects of my
+    <a href="/projects/#research">research</a> and some helpful <a href="/tools/">tools</a> of the trade. I also occasionally write <a href="/tools/">posts</a> about things I think are worth remembering or sharing. If you're interested in any of this stuff, please don't hesitate to <a href="/contact/">get in touch</a>!
   </p>
 
 </div>
