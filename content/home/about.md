@@ -11,7 +11,9 @@ weight = 30
 [interests]
   interests = [
     "Bioacoustics",
-    "Baleen whale ecology"
+    "Baleen whale ecology",
+    "Data visualization",
+    "Autonomous underwater vehicles"
   ]
 
 # List your qualifications (such as academic degrees).
@@ -27,6 +29,11 @@ weight = 30
 
 +++
 
-# Biography
-
-My name is Hansen...
+My name is Hansen Johnson. I'm a PhD student at Dalhousie University, and a guest student at the
+Woods Hole Oceanographic Institution where I work with
+[Dr. Chris Taggart](http://fishocean.ocean.dal.ca/about/") and
+[Dr. Mark Baumgartner](http://www.whoi.edu/sbl/liteSite.do?litesiteid=5252),
+respectively. I study baleen whale acoustic and habitat ecology in the Northwest Atlantic.
+My goals for this website are to 1) share some aspects of my
+[research](/projects/#research) and 2) contribute some code and advice to the vast
+repository of online knowledge that I so often turn to for help. If you're interested in any of this stuff, please don't hesitate to [get in touch!](/contact/)
