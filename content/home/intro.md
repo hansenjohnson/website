@@ -3,7 +3,7 @@
 # An example of using the custom widget to create your own homepage section.
 # To create more sections, duplicate this file and edit the values below as desired.
 widget = "custom"
-active = false
+active = true
 date = "2016-04-20T00:00:00"
 
 # Note: a full width section format can be enabled by commenting out the `title` and `subtitle` with a `#`.
@@ -15,10 +15,10 @@ weight = 10
 
 +++
 
-<div align='center'>
+<div align='left'>
 
-  <h4>
-    Hello and welcome to my website! There's a lot of information here about <a href="/about/">me</a>, my <a href="/projects/#research">research</a>, some of the <a href="/tools/">tools</a> I use, and a few <a href="/post/">posts</a> about things I think are worth remembering or sharing. Enjoy!
-  </h4>
+  <p style="font-size:1.5em">
+    Hello and welcome to my website! There's a lot of information here about <a href="/about/">me</a>, my <a href="/projects/#research">research</a>, some of the <a href="/tools/">tools</a> I use, and a few <a href="/post/">posts</a> about things I think are worth remembering or sharing. Hope you enjoy and feel free to <a href="/contact">get in touch</a>!
+  </p>
 
 </div>
