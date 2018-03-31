@@ -22,7 +22,7 @@ weight = 10
     <a href="http://fishocean.ocean.dal.ca/about/">Dr. Chris Taggart</a> and
     <a href="http://www.whoi.edu/sbl/liteSite.do?litesiteid=5252">Dr. Mark Baumgartner</a>,
     respectively. I study baleen whale acoustic and habitat ecology in the Northwest Atlantic. I use this site to share some aspects of my
-    <a href="/projects/#research">research</a> and some helpful <a href="/tools/">tools</a> of the trade. I also occasionally write <a href="/tools/">posts</a> about things I think are worth remembering or sharing. If you're interested in any of this stuff, please don't hesitate to <a href="/contact/">get in touch</a>!
+    <a href="/projects/#research">research</a> and some helpful <a href="/tools/">tools</a> of the trade. Occasionally I also write <a href="/tools/">posts</a> about things I think are worth remembering or sharing. If you're interested in any of this stuff, please don't hesitate to <a href="/contact/">get in touch</a>!
   </p>
 
 </div>
