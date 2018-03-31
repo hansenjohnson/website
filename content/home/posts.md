@@ -6,7 +6,7 @@ active = true
 date = "2016-04-20T00:00:00"
 
 title = "Recent Posts"
-subtitle = ""
+subtitle = "Here are a few ideas I think are worth remembering or sharing. Click the link below for the full archive."
 
 # Order that this section will appear in.
 weight = 70
