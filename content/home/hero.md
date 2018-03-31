@@ -14,7 +14,7 @@ weight = 3
 [header]
   overlay_color = "#666"  # An HTML color value.
   overlay_img = "headers/ship-wide.jpeg"  # Image path relative to your `static/img/` folder.
-  overlay_filter = 0.4  # Darken the image. Value in range 0-1.
+  overlay_filter = 0.5  # Darken the image. Value in range 0-1.
 
 # Call to action button (optional).
 #   Activate the button by specifying a URL and button label below.
@@ -23,6 +23,8 @@ weight = 3
 #  url = "./post/getting-started/"
 #  label = '<i class="fa fa-download"></i> Install Now' -->
 +++
+
+Explore for more information about <a href="/about/">me</a>, my <a href="/projects/#research">research</a>, some of the <a href="/tools/">tools</a> I use, and a few <a href="/post/">posts</a> about things I think are worth remembering or sharing. Enjoy, and <a href="/contact/">get in touch</a>!
 
 <!-- <div align='center'>
 
