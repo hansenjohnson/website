@@ -1,0 +1,178 @@
+---
+title: Interactive maps in R (with leaflet)
+author: Hansen Johnson
+date: '2018-04-05'
+slug: interactive-maps-in-r
+categories:
+  - data-visualization
+  - R
+tags:
+  - html
+  - plots
+draft: no
+summary: A quick example of how to generate an interactive, stand-alone html map using mainly the `leaflet` package
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, warning = FALSE, message = FALSE)
+```
+
+I've been asked a few times about making interactive maps in R. I thought I'd follow up on an example I wrote up for [static bathymetric maps](https://hansenjohnson.org/post/bathymetric-maps-in-r/) with a (very) quick example of interactive mapping with [leaflet](http://leafletjs.com/) in R. More details are available at the awesome [R leaflet website](https://rstudio.github.io/leaflet/).
+
+## Step 1: make some data
+
+Here's some test data to plot. These structures could, of course, be replaced by real data.
+
+``` {r data}
+# make a simple track line
+lon = c(-65.17536, -65.37423, -65.64541, -66.06122, -66.15161)
+lat = c(43.30837, 42.94679, 42.87448, 42.92871, 42.72985)
+lin = data.frame(lon, lat)
+
+# make a few points
+lon = c(-65.3, -65.7, -64.1)
+lat = c(43.4, 43, 42.9)
+pts = data.frame(lon, lat)
+
+# build a polygon (in this case the 'Roseway Basin Area To Be Avoided')
+ply = rbind.data.frame(c(-64.916667, 43.266667),
+                       c(-64.983333, 42.783333),
+                       c(-65.516667, 42.65),
+                       c(-66.083333, 42.866667))
+colnames(ply) = c('lon', 'lat')
+
+```
+
+## Step 2: build a basemap
+
+Now let's build a basemap. This is achieved with the `leaflet()` function, and a series of pipes (`%>%`) to sequentially add more features. Hopefully the comments adequately describe each feature. The whole thing is stored as the variable `map`.
+
+``` {r basemap}
+# required libraries
+library(leaflet, quietly = T, warn.conflicts = F)
+
+# start basemap
+map <- leaflet() %>% 
+  
+  # add ocean basemap
+  addProviderTiles(providers$Esri.OceanBasemap) %>%
+  
+  # add another layer with place names
+  addProviderTiles(providers$Hydda.RoadsAndLabels, group = 'Place names') %>%
+  
+  # add graticules from a NOAA webserver
+  addWMSTiles(
+    "https://gis.ngdc.noaa.gov/arcgis/services/graticule/MapServer/WMSServer/",
+    layers = c("1-degree grid", "5-degree grid"),
+    options = WMSTileOptions(format = "image/png8", transparent = TRUE),
+    attribution = NULL,group = 'Graticules') %>%
+  
+  # focus map in a certain area / zoom level
+  setView(lng = -65, lat = 43, zoom = 7) %>%
+  
+  # add layers control
+  addLayersControl(overlayGroups = c('Place names',
+                      'Graticules',
+                      'Points',
+                      'Lines',
+                      'Polygons'),
+                      options = layersControlOptions(collapsed = FALSE),
+                      position = 'topright') %>%
+      
+      # list groups to hide on startup
+      hideGroup(c('Place names'))
+
+# show map
+map
+
+```
+
+## Step 3: add data to basemap
+
+Adding data to the map is relatively straightforward. It's actually nearly the same as adding features to the basemap. The main difference is that you need to actually overwrite and update the variable `map` each time you add something new, hence the `map <- map %>%` with each data type.
+
+``` {r plot}
+# add points
+map <- map %>%
+  addCircleMarkers(data = pts, ~lon, ~lat,
+                   weight = 0.5,
+                   col = 'black', 
+                   fillColor = 'darkslategrey',
+                   radius = 4, 
+                   fillOpacity = 0.9, 
+                   stroke = T, 
+                   label = ~paste0('Point at: ', 
+                                   as.character(round(lat,3)), ', ', 
+                                   as.character(round(lon,3))), 
+                   group = 'Points')
+
+# add lines
+map <- map %>%
+  addPolylines(data = lin, ~lon, ~lat,
+               weight = 3,
+               color = 'red',
+               popup = 'This is a line!', 
+               smoothFactor = 3,
+               group = 'Lines') 
+
+# add polygons
+map <- map %>%
+  addPolygons(data=ply, lng=~lon, lat=~lat,
+              weight = 1, 
+              color = 'grey', 
+              fillColor = 'grey',
+              fill = T, 
+              fillOpacity = 0.25, 
+              stroke = T, 
+              dashArray = c(5,5), 
+              smoothFactor = 3,
+              options = pathOptions(clickable = F),
+              group = 'Polygons')
+
+# show map
+map
+
+```
+
+## Step 4: add extra features
+
+There are a ton of cool features that can be added. Check out packages like `leaflet_extras` for more details. These are a few that I find very useful.
+
+``` {r features}
+# add more features
+map <- map %>% 
+      
+      # add a map scalebar
+      addScaleBar(position = 'topright') %>%
+      
+      # add measurement tool
+      addMeasure(
+        primaryLengthUnit = "kilometers",
+        secondaryLengthUnit = 'miles', 
+        primaryAreaUnit = "hectares",
+        secondaryAreaUnit="acres", 
+        position = 'topleft')
+
+# show map    
+map    
+
+```
+
+## Step 5: saving the map
+
+The fact that these maps can be saved as stand-alone html widgets is pretty incredible. This means they can be treated effectively as a normal image file, but retain their interactivity. It also makes them very, very easy to [embed in a web page](https://hansenjohnson.org/post/add-html-map-to-webpage/).
+
+I recently also discovered the `mapshot()` function that saves a simple static screenshot, which can be very nice for writing in formats that don't support interactive graphics. Directly saving the map made here is a little ugly because of all the buttons and such, but just about all of those things can be easily removed if so desired.
+
+``` {r saving}
+# save a stand-alone, interactive map as an html file
+library(htmlwidgets)
+saveWidget(widget = map, file = 'map.html', selfcontained = T)
+
+# save a snapshot as a png file
+library(mapview)
+mapshot(map, file = 'map.png')
+
+```

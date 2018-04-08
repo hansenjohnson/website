@@ -1,0 +1,175 @@
+---
+title: Interactive maps in R (with leaflet)
+author: Hansen Johnson
+date: '2018-04-05'
+slug: interactive-maps-in-r
+categories:
+  - data-visualization
+  - R
+tags:
+  - html
+  - plots
+draft: no
+summary: A quick example of how to generate an interactive, stand-alone html map using mainly the `leaflet` package
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/leaflet/leaflet.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet/leaflet.js"></script>
+<link href="/rmarkdown-libs/leafletfix/leafletfix.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/leaflet-label/leaflet.label.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet-label/leaflet.label.js"></script>
+<script src="/rmarkdown-libs/Proj4Leaflet/proj4-compressed.js"></script>
+<script src="/rmarkdown-libs/Proj4Leaflet/proj4leaflet.js"></script>
+<script src="/rmarkdown-libs/leaflet-binding/leaflet.js"></script>
+<script src="/rmarkdown-libs/leaflet-providers/leaflet-providers.js"></script>
+<script src="/rmarkdown-libs/leaflet-providers-plugin/leaflet-providers-plugin.js"></script>
+<link href="/rmarkdown-libs/leaflet-measure/leaflet-measure.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/leaflet-measure/leaflet-measure.min.js"></script>
+
+
+<p>I’ve been asked a few times about making interactive maps in R. I thought I’d follow up on an example I wrote up for <a href="https://hansenjohnson.org/post/bathymetric-maps-in-r/">static bathymetric maps</a> with a (very) quick example of interactive mapping with <a href="http://leafletjs.com/">leaflet</a> in R. More details are available at the awesome <a href="https://rstudio.github.io/leaflet/">R leaflet website</a>.</p>
+<div id="step-1-make-some-data" class="section level2">
+<h2>Step 1: make some data</h2>
+<p>Here’s some test data to plot. These structures could, of course, be replaced by real data.</p>
+<pre class="r"><code># make a simple track line
+lon = c(-65.17536, -65.37423, -65.64541, -66.06122, -66.15161)
+lat = c(43.30837, 42.94679, 42.87448, 42.92871, 42.72985)
+lin = data.frame(lon, lat)
+
+# make a few points
+lon = c(-65.3, -65.7, -64.1)
+lat = c(43.4, 43, 42.9)
+pts = data.frame(lon, lat)
+
+# build a polygon (in this case the &#39;Roseway Basin Area To Be Avoided&#39;)
+ply = rbind.data.frame(c(-64.916667, 43.266667),
+                       c(-64.983333, 42.783333),
+                       c(-65.516667, 42.65),
+                       c(-66.083333, 42.866667))
+colnames(ply) = c(&#39;lon&#39;, &#39;lat&#39;)</code></pre>
+</div>
+<div id="step-2-build-a-basemap" class="section level2">
+<h2>Step 2: build a basemap</h2>
+<p>Now let’s build a basemap. This is achieved with the <code>leaflet()</code> function, and a series of pipes (<code>%&gt;%</code>) to sequentially add more features. Hopefully the comments adequately describe each feature. The whole thing is stored as the variable <code>map</code>.</p>
+<pre class="r"><code># required libraries
+library(leaflet, quietly = T, warn.conflicts = F)
+
+# start basemap
+map &lt;- leaflet() %&gt;% 
+  
+  # add ocean basemap
+  addProviderTiles(providers$Esri.OceanBasemap) %&gt;%
+  
+  # add another layer with place names
+  addProviderTiles(providers$Hydda.RoadsAndLabels, group = &#39;Place names&#39;) %&gt;%
+  
+  # add graticules from a NOAA webserver
+  addWMSTiles(
+    &quot;https://gis.ngdc.noaa.gov/arcgis/services/graticule/MapServer/WMSServer/&quot;,
+    layers = c(&quot;1-degree grid&quot;, &quot;5-degree grid&quot;),
+    options = WMSTileOptions(format = &quot;image/png8&quot;, transparent = TRUE),
+    attribution = NULL,group = &#39;Graticules&#39;) %&gt;%
+  
+  # focus map in a certain area / zoom level
+  setView(lng = -65, lat = 43, zoom = 7) %&gt;%
+  
+  # add layers control
+  addLayersControl(overlayGroups = c(&#39;Place names&#39;,
+                      &#39;Graticules&#39;,
+                      &#39;Points&#39;,
+                      &#39;Lines&#39;,
+                      &#39;Polygons&#39;),
+                      options = layersControlOptions(collapsed = FALSE),
+                      position = &#39;topright&#39;) %&gt;%
+      
+      # list groups to hide on startup
+      hideGroup(c(&#39;Place names&#39;))
+
+# show map
+map</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.OceanBasemap",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addProviderTiles","args":["Hydda.RoadsAndLabels",null,"Place names",{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addWMSTiles","args":["https://gis.ngdc.noaa.gov/arcgis/services/graticule/MapServer/WMSServer/",null,"Graticules",{"styles":"","format":"image/png8","transparent":true,"version":"1.1.1","crs":null,"layers":["1-degree grid","5-degree grid"]}]},{"method":"addLayersControl","args":[[],["Place names","Graticules","Points","Lines","Polygons"],{"collapsed":false,"autoZIndex":true,"position":"topright"}]},{"method":"hideGroup","args":["Place names"]}],"setView":[[43,-65],7,[]]},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="step-3-add-data-to-basemap" class="section level2">
+<h2>Step 3: add data to basemap</h2>
+<p>Adding data to the map is relatively straightforward. It’s actually nearly the same as adding features to the basemap. The main difference is that you need to actually overwrite and update the variable <code>map</code> each time you add something new, hence the <code>map &lt;- map %&gt;%</code> with each data type.</p>
+<pre class="r"><code># add points
+map &lt;- map %&gt;%
+  addCircleMarkers(data = pts, ~lon, ~lat,
+                   weight = 0.5,
+                   col = &#39;black&#39;, 
+                   fillColor = &#39;darkslategrey&#39;,
+                   radius = 4, 
+                   fillOpacity = 0.9, 
+                   stroke = T, 
+                   label = ~paste0(&#39;Point at: &#39;, 
+                                   as.character(round(lat,3)), &#39;, &#39;, 
+                                   as.character(round(lon,3))), 
+                   group = &#39;Points&#39;)
+
+# add lines
+map &lt;- map %&gt;%
+  addPolylines(data = lin, ~lon, ~lat,
+               weight = 3,
+               color = &#39;red&#39;,
+               popup = &#39;This is a line!&#39;, 
+               smoothFactor = 3,
+               group = &#39;Lines&#39;) 
+
+# add polygons
+map &lt;- map %&gt;%
+  addPolygons(data=ply, lng=~lon, lat=~lat,
+              weight = 1, 
+              color = &#39;grey&#39;, 
+              fillColor = &#39;grey&#39;,
+              fill = T, 
+              fillOpacity = 0.25, 
+              stroke = T, 
+              dashArray = c(5,5), 
+              smoothFactor = 3,
+              options = pathOptions(clickable = F),
+              group = &#39;Polygons&#39;)
+
+# show map
+map</code></pre>
+<div id="htmlwidget-2" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.OceanBasemap",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addProviderTiles","args":["Hydda.RoadsAndLabels",null,"Place names",{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addWMSTiles","args":["https://gis.ngdc.noaa.gov/arcgis/services/graticule/MapServer/WMSServer/",null,"Graticules",{"styles":"","format":"image/png8","transparent":true,"version":"1.1.1","crs":null,"layers":["1-degree grid","5-degree grid"]}]},{"method":"addLayersControl","args":[[],["Place names","Graticules","Points","Lines","Polygons"],{"collapsed":false,"autoZIndex":true,"position":"topright"}]},{"method":"hideGroup","args":["Place names"]},{"method":"addCircleMarkers","args":[[43.4,43,42.9],[-65.3,-65.7,-64.1],4,null,"Points",{"lineCap":null,"lineJoin":null,"clickable":true,"pointerEvents":null,"className":"","stroke":true,"color":"black","weight":0.5,"opacity":0.5,"fill":true,"fillColor":"darkslategrey","fillOpacity":0.9,"dashArray":null},null,null,null,null,["Point at: 43.4, -65.3","Point at: 43, -65.7","Point at: 42.9, -64.1"],null,null]},{"method":"addPolylines","args":[[[[{"lng":[-65.17536,-65.37423,-65.64541,-66.06122,-66.15161],"lat":[43.30837,42.94679,42.87448,42.92871,42.72985]}]]],null,"Lines",{"lineCap":null,"lineJoin":null,"clickable":true,"pointerEvents":null,"className":"","stroke":true,"color":"red","weight":3,"opacity":0.5,"fill":false,"fillColor":"red","fillOpacity":0.2,"dashArray":null,"smoothFactor":3,"noClip":false},"This is a line!",null,null,null,null]},{"method":"addPolygons","args":[[[[{"lng":[-64.916667,-64.983333,-65.516667,-66.083333],"lat":[43.266667,42.783333,42.65,42.866667]}]]],null,"Polygons",{"lineCap":null,"lineJoin":null,"clickable":false,"pointerEvents":null,"className":"","stroke":true,"color":"grey","weight":1,"opacity":0.5,"fill":true,"fillColor":"grey","fillOpacity":0.25,"dashArray":[5,5],"smoothFactor":3,"noClip":false},null,null,null,null,null]}],"setView":[[43,-65],7,[]],"limits":{"lat":[42.65,43.4],"lng":[-66.15161,-64.1]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="step-4-add-extra-features" class="section level2">
+<h2>Step 4: add extra features</h2>
+<p>There are a ton of cool features that can be added. Check out packages like <code>leaflet_extras</code> for more details. These are a few that I find very useful.</p>
+<pre class="r"><code># add more features
+map &lt;- map %&gt;% 
+      
+      # add a map scalebar
+      addScaleBar(position = &#39;topright&#39;) %&gt;%
+      
+      # add measurement tool
+      addMeasure(
+        primaryLengthUnit = &quot;kilometers&quot;,
+        secondaryLengthUnit = &#39;miles&#39;, 
+        primaryAreaUnit = &quot;hectares&quot;,
+        secondaryAreaUnit=&quot;acres&quot;, 
+        position = &#39;topleft&#39;)
+
+# show map    
+map    </code></pre>
+<div id="htmlwidget-3" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.OceanBasemap",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addProviderTiles","args":["Hydda.RoadsAndLabels",null,"Place names",{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addWMSTiles","args":["https://gis.ngdc.noaa.gov/arcgis/services/graticule/MapServer/WMSServer/",null,"Graticules",{"styles":"","format":"image/png8","transparent":true,"version":"1.1.1","crs":null,"layers":["1-degree grid","5-degree grid"]}]},{"method":"addLayersControl","args":[[],["Place names","Graticules","Points","Lines","Polygons"],{"collapsed":false,"autoZIndex":true,"position":"topright"}]},{"method":"hideGroup","args":["Place names"]},{"method":"addCircleMarkers","args":[[43.4,43,42.9],[-65.3,-65.7,-64.1],4,null,"Points",{"lineCap":null,"lineJoin":null,"clickable":true,"pointerEvents":null,"className":"","stroke":true,"color":"black","weight":0.5,"opacity":0.5,"fill":true,"fillColor":"darkslategrey","fillOpacity":0.9,"dashArray":null},null,null,null,null,["Point at: 43.4, -65.3","Point at: 43, -65.7","Point at: 42.9, -64.1"],null,null]},{"method":"addPolylines","args":[[[[{"lng":[-65.17536,-65.37423,-65.64541,-66.06122,-66.15161],"lat":[43.30837,42.94679,42.87448,42.92871,42.72985]}]]],null,"Lines",{"lineCap":null,"lineJoin":null,"clickable":true,"pointerEvents":null,"className":"","stroke":true,"color":"red","weight":3,"opacity":0.5,"fill":false,"fillColor":"red","fillOpacity":0.2,"dashArray":null,"smoothFactor":3,"noClip":false},"This is a line!",null,null,null,null]},{"method":"addPolygons","args":[[[[{"lng":[-64.916667,-64.983333,-65.516667,-66.083333],"lat":[43.266667,42.783333,42.65,42.866667]}]]],null,"Polygons",{"lineCap":null,"lineJoin":null,"clickable":false,"pointerEvents":null,"className":"","stroke":true,"color":"grey","weight":1,"opacity":0.5,"fill":true,"fillColor":"grey","fillOpacity":0.25,"dashArray":[5,5],"smoothFactor":3,"noClip":false},null,null,null,null,null]},{"method":"addScaleBar","args":[{"maxWidth":100,"metric":true,"imperial":true,"updateWhenIdle":true,"position":"topright"}]},{"method":"addMeasure","args":[{"position":"topleft","primaryLengthUnit":"kilometers","secondaryLengthUnit":"miles","primaryAreaUnit":"hectares","secondaryAreaUnit":"acres","activeColor":"#ABE67E","completedColor":"#C8F2BE","popupOptions":{"className":"leaflet-measure-resultpopup","autoPanPadding":[10,10]},"captureZIndex":10000,"localization":"en","decPoint":".","thousandsSep":","}]}],"setView":[[43,-65],7,[]],"limits":{"lat":[42.65,43.4],"lng":[-66.15161,-64.1]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="step-5-saving-the-map" class="section level2">
+<h2>Step 5: saving the map</h2>
+<p>The fact that these maps can be saved as stand-alone html widgets is pretty incredible. This means they can be treated effectively as a normal image file, but retain their interactivity. It also makes them very, very easy to <a href="https://hansenjohnson.org/post/add-html-map-to-webpage/">embed in a web page</a>.</p>
+<p>I recently also discovered the <code>mapshot()</code> function that saves a simple static screenshot, which can be very nice for writing in formats that don’t support interactive graphics. Directly saving the map made here is a little ugly because of all the buttons and such, but just about all of those things can be easily removed if so desired.</p>
+<pre class="r"><code># save a stand-alone, interactive map as an html file
+library(htmlwidgets)
+saveWidget(widget = map, file = &#39;map.html&#39;, selfcontained = T)
+
+# save a snapshot as a png file
+library(mapview)
+mapshot(map, file = &#39;map.png&#39;)</code></pre>
+</div>
