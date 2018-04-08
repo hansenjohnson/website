@@ -4,9 +4,11 @@ author: Hansen Johnson
 date: '2018-03-02'
 slug: spectrograms-in-r
 categories:
-  - R
-tags:
   - Bioacoustics
+  - Data-visualization
+tags:
+  - R
+  - Spectrogram
 draft: false
 summary: "Step-by-step instructions for creating and plotting acoustic spectrograms from wav files in R"
 ---

@@ -4,8 +4,12 @@ author: Hansen Johnson
 date: '2018-03-03'
 slug: sync-github-repository-with-existing-r-project
 categories:
+  - Version-control
+tags:
   - R
-tags: []
+  - Rstudio
+  - Git
+  - Github
 header:
   caption: ''
   image: ''

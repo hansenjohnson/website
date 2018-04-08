@@ -6,7 +6,7 @@ slug: job-opportunity-scientific-programmer
 categories:
   - Other
 tags:
-  - Other
+  - Jobs
 summary: "The Taggart lab has an open position for someone with strong programming skills!"
 ---
 
