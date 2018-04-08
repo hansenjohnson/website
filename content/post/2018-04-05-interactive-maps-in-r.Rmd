@@ -1,7 +1,7 @@
 ---
 title: Interactive maps in R (with leaflet)
 author: Hansen Johnson
-date: '2018-04-05'
+date: '2018-04-07'
 slug: interactive-maps-in-r
 categories:
   - data-visualization
@@ -27,22 +27,16 @@ Here's some test data to plot. These structures could, of course, be replaced by
 
 ``` {r data}
 # make a simple track line
-lon = c(-65.17536, -65.37423, -65.64541, -66.06122, -66.15161)
-lat = c(43.30837, 42.94679, 42.87448, 42.92871, 42.72985)
-lin = data.frame(lon, lat)
+lin = data.frame(lon = c(-65.17536, -65.37423, -65.64541, -66.06122, -66.15161),
+                 lat = c(43.30837, 42.94679, 42.87448, 42.92871, 42.72985))
 
 # make a few points
-lon = c(-65.3, -65.7, -64.1)
-lat = c(43.4, 43, 42.9)
-pts = data.frame(lon, lat)
+pts = data.frame(lon = c(-65.3, -65.7, -64.1),
+                 lat = c(43.4, 43, 42.9))
 
 # build a polygon (in this case the 'Roseway Basin Area To Be Avoided')
-ply = rbind.data.frame(c(-64.916667, 43.266667),
-                       c(-64.983333, 42.783333),
-                       c(-65.516667, 42.65),
-                       c(-66.083333, 42.866667))
-colnames(ply) = c('lon', 'lat')
-
+ply = data.frame(lon = c(-64.916667, -64.983333, -65.516667, -66.083333),
+                 lat = c(43.266667, 42.783333, 42.65, 42.866667))
 ```
 
 ## Step 2: build a basemap
@@ -86,7 +80,6 @@ map <- leaflet() %>%
 
 # show map
 map
-
 ```
 
 ## Step 3: add data to basemap
@@ -133,7 +126,6 @@ map <- map %>%
 
 # show map
 map
-
 ```
 
 ## Step 4: add extra features
@@ -157,7 +149,6 @@ map <- map %>%
 
 # show map    
 map    
-
 ```
 
 ## Step 5: saving the map
@@ -166,13 +157,14 @@ The fact that these maps can be saved as stand-alone html widgets is pretty incr
 
 I recently also discovered the `mapshot()` function that saves a simple static screenshot, which can be very nice for writing in formats that don't support interactive graphics. Directly saving the map made here is a little ugly because of all the buttons and such, but just about all of those things can be easily removed if so desired.
 
+Uncomment either chunk depending on your desired output format.
+
 ``` {r saving}
-# save a stand-alone, interactive map as an html file
-library(htmlwidgets)
-saveWidget(widget = map, file = 'map.html', selfcontained = T)
+# # # save a stand-alone, interactive map as an html file
+# library(htmlwidgets)
+# saveWidget(widget = map, file = 'map.html', selfcontained = T)
 
-# save a snapshot as a png file
-library(mapview)
-mapshot(map, file = 'map.png')
-
+# # # save a snapshot as a png file
+# library(mapview)
+# mapshot(map, file = 'map.png')
 ```
