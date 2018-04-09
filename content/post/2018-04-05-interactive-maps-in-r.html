@@ -91,7 +91,7 @@ map</code></pre>
 </div>
 <div id="step-3-add-data-to-basemap" class="section level2">
 <h2>Step 3: add data to basemap</h2>
-<p>Adding data to the map is relatively straightforward. It’s actually nearly the same as adding features to the basemap. The main difference is that you need to actually overwrite and update the variable <code>map</code> each time you add something new, hence the <code>map &lt;- map %&gt;%</code> with each data type.</p>
+<p>Adding data to the map is relatively straightforward. It’s nearly the same as adding features to the basemap. The main difference is that you need to actually overwrite and update the variable <code>map</code> each time you add something new, hence the <code>map &lt;- map %&gt;%</code> with each data type.</p>
 <pre class="r"><code># add points
 map &lt;- map %&gt;%
   addCircleMarkers(data = pts, ~lon, ~lat,

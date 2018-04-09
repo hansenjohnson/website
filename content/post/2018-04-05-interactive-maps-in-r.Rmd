@@ -84,7 +84,7 @@ map
 
 ## Step 3: add data to basemap
 
-Adding data to the map is relatively straightforward. It's actually nearly the same as adding features to the basemap. The main difference is that you need to actually overwrite and update the variable `map` each time you add something new, hence the `map <- map %>%` with each data type.
+Adding data to the map is relatively straightforward. It's nearly the same as adding features to the basemap. The main difference is that you need to actually overwrite and update the variable `map` each time you add something new, hence the `map <- map %>%` with each data type.
 
 ``` {r plot}
 # add points
