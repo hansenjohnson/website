@@ -16,7 +16,7 @@ tags = ["data-visualization"]
 categories = ["data-visualization"]
 
 # Optional external URL for project (replaces project detail page).
-external_link = "http://leviathan.ocean.dal.ca/live_glider/"
+# external_link = "http://leviathan.ocean.dal.ca/live_glider/"
 
 # Does the project detail page use math formatting?
 math = false
@@ -32,4 +32,4 @@ caption = ""
 
 +++
 
-Here's a description of this project
+I'm developing a simple application in [Shiny](https://shiny.rstudio.com/) to display oceanographic data and acoustic whale detections collected by our Slocum gliders when they're out on a mission. Here's a link to the prototype: http://leviathan.ocean.dal.ca/live_glider/

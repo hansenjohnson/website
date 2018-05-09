@@ -16,7 +16,7 @@ tags = ["data-visualization"]
 categories = ["data-visualization"]
 
 # Optional external URL for project (replaces project detail page).
-external_link = "http://leviathan.ocean.dal.ca/WhaleMap/"
+# external_link = "http://leviathan.ocean.dal.ca/WhaleMap/"
 
 # Does the project detail page use math formatting?
 math = false
@@ -32,4 +32,4 @@ caption = ""
 
 +++
 
-Here's a description of this project
+I'm developing a system called WhaleMap to collate and display results from Canadian baleen whale surveys in near real-time. The visualization tool is built in [Shiny](https://shiny.rstudio.com/). It's not finished yet, but I will post a link here when it is.
