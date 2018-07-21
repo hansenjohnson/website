@@ -4,8 +4,8 @@ widget = "projects"
 active = true
 date = "2016-04-20T00:00:00"
 
-title = "Research"
-subtitle = "These are some of the projects I'm currently involved in, or have worked on in the past. <br>**Disclaimer:** these pages are still under active development. Each at least contains a basic summary, but feel free to [contact me](/contact/) for more details."
+title = "Projects"
+subtitle = "These are some of the projects I'm currently involved in, or have worked on in the past. Each at least contains a basic summary, but feel free to [contact me](/contact/) for more details."
 
 # Order that this section will appear in.
 weight = 10
@@ -47,5 +47,9 @@ filter_default = 0
 [[filter]]
   name = "Behavior"
   tag = ".behavior"
+
+[[filter]]
+  name = "Data visualization"
+  tag = ".data-visualization"
 
 +++
