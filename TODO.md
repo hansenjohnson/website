@@ -7,6 +7,9 @@ Borrow from previous website to build a nice page for showing sound examples for
 ## Friends page
 Links to people doing similar things, or other cool stuff
 
+## Photos page
+Add a simple html slideshow (https://www.w3schools.com/w3css/w3css_slideshow.asp) to show some fieldwork photos. Could have this as a separate page or a prominent section of the homepage.
+
 ## Ideas for future posts
 * Bathymetric maps in R
 * Convert from LaTeX to MS Word (`latex2rtf`)
@@ -20,5 +23,4 @@ Links to people doing similar things, or other cool stuff
 * ...
 
 ## Fixes
-* Consider reducing text size for nicer online look
 * Update projects (Detection range modeling / validation)
