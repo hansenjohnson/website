@@ -34,7 +34,7 @@ html {
 
 body {
   font-family: inherit;
-  font-size: .7rem;
+  font-size: .8rem;
   line-height: inherit;
   color: inherit;
   background-color: {{ .Get "background" }};
