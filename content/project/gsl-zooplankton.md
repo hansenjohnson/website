@@ -34,7 +34,9 @@ caption = ""
 
 The southern Gulf of St Lawrence (GSL) has recently emerged as a "hotspot" for North Atlantic right whales. More than half of the known population was observed there over the course of the summer in 2017. While this is clearly an area of importance for the species, it's worth emphasizing that we simply don't know if their use of this area is new. Surveys of the area only began in earnest in 2015. Before that there's almost no dedicated survey data. I suspect they have been visiting the region for a long time, but perhaps have been using it more in recent years.
 
-One hypothesis is that changes in the availability of their zooplankton prey has driven right whales into the southern GSL to feed. I joined teams from the [New England Aquarium](http://www.andersoncabotcenterforoceanlife.org/) and the [Canadian Whale Institute](https://www.canadianwhaleinstitute.ca/) aboard the *Shelagh* to help with their visual survey effort, and opportunistically collect net samples of zooplankton near right whales to try to better understand their foraging ecology in the region.
+One hypothesis is that changes in the availability of their zooplankton prey has driven right whales into the southern GSL to feed. In 2017 I joined teams from the [New England Aquarium](http://www.andersoncabotcenterforoceanlife.org/) and the [Canadian Whale Institute](https://www.canadianwhaleinstitute.ca/) aboard the *R/V Shelagh* to help with their visual survey effort, and opportunistically collect net samples of zooplankton near right whales to try to better understand their foraging ecology in the region.
+
+The team is taking to sea again in 2018 to repeat and expand upon these efforts from the *F/V Jean-Denis Martin*.
 
 <div align="middle">
   <img src="/img/joe.jpg" width="60%">
