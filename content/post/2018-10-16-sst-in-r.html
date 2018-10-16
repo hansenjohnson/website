@@ -1,0 +1,114 @@
+---
+title: Sea surface temperature (SST) in R
+date: '2018-10-16'
+slug: sst-in-r
+categories:
+  - Data-visualization
+  - Mapping
+tags:
+  - R
+---
+
+
+
+<p>I put together a few <a href="https://christophrenkl.github.io/programming_tutorials/r/">R tutorials</a> recently, and ended the series with a quick tutorial of how to download and plot satellite-derived sea surface temperature (SST) data in R. Well, I thought it would be quick. It took me longer than I expected to figure out. Now that I have, though, I’m happy with the result and thought others might be interested as well. If nothing else, you can make some very pretty pictures.</p>
+<p>The satellite data I’m using aren’t strictly satellite data. It’s actually a product from NOAA called the ‘optimum interpolation sea surface temperature’ (OISST) dataset, which is a compilation of satellite and other remote-sensed data. It’s updated daily, has global coverage with 1/4 degree resolution, and extends all the way back to 1981. Most importantly, it’s freely available to download! You can learn more <a href="https://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.html">at the NOAA website</a>.</p>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<p>Begin by selecting the date to plot, then read in a few libraries for plotting (<code>oce</code>, and <code>ocedata</code>) and working with netcdf files that contain the satellite data (<code>ncdf4</code>). Users on windows machines may have issues with the <code>ncdf4</code> library, but apparently these issues have been resolved in recent package upgrades.</p>
+<pre class="r"><code># libraries
+suppressPackageStartupMessages(library(oce))
+suppressPackageStartupMessages(library(ncdf4))
+suppressPackageStartupMessages(library(ocedata))
+data(&quot;coastlineWorld&quot;)
+
+# choose date
+dt = as.Date(&#39;2018-09-17&#39;)</code></pre>
+</div>
+<div id="download-and-format-the-data" class="section level2">
+<h2>Download and format the data</h2>
+<p>The next step is to download and format the data. This involves 1) creating a url to the data, 2) downloading the file if you haven’t done so already, and 3) extracting relevant data from the downloaded netcdf file.</p>
+<pre class="r"><code># convert date to new format
+dtc = format(dt, &#39;%Y%m%d&#39;)
+
+# assemble url to query NOAA database
+url_base = paste0(&quot;https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/access/&quot;, dtc, &quot;120000-NCEI/0-fv02/&quot;)
+data_file = paste0(dtc, &quot;120000-NCEI-L4_GHRSST-SSTblend-AVHRR_OI-GLOB-v02.0-fv02.0.nc&quot;)
+
+# define data url
+data_url = paste0(url_base, data_file)
+
+# download netcdf
+if(!file.exists(data_file)){
+  download.file(url = data_url, destfile = data_file)
+} else {
+  message(&#39;SST data already downloaded! Located at:\n&#39;, data_file)
+}
+
+# open netcdf file and extract variables
+nc = nc_open(data_file)
+
+# view netcf metadata
+# print(netcdf)
+
+# extract data
+lat = ncvar_get(nc, &quot;lat&quot;)
+lon = ncvar_get(nc, &quot;lon&quot;)
+time = ncvar_get(nc, &quot;time&quot;)
+sst = ncvar_get(nc, &quot;analysed_sst&quot;)
+
+# close netcdf
+nc_close(nc)
+
+# convert timestamp
+time = as.POSIXct(time, origin = &#39;1981-01-01 00:00:00&#39;, tz = &#39;UTC&#39;)
+
+# convert units from kelvin to celcius
+sst = sst - 273.15</code></pre>
+</div>
+<div id="plot-data" class="section level2">
+<h2>Plot data</h2>
+<p>Last step is to plot the data. This requires us to configure the plot window to plot both the map and a colorbar alongside. After that, we simply rely on the sweet tools built by the <code>oce</code> developers to plot a nice make of global SST.</p>
+<pre class="r"><code># setup layout for plotting
+m = rbind(
+  c(1,1,1,1,1,1,1,1,1,1,1,2),
+  c(1,1,1,1,1,1,1,1,1,1,1,2),
+  c(1,1,1,1,1,1,1,1,1,1,1,2),
+  c(1,1,1,1,1,1,1,1,1,1,1,2),
+  c(1,1,1,1,1,1,1,1,1,1,1,2),
+  c(1,1,1,1,1,1,1,1,1,1,1,2)
+)
+
+layout(m)
+
+# configure colour scale for plotting
+pal = oce.colorsTemperature()
+zlim = range(sst, na.rm = TRUE)
+c = colormap(sst, breaks=100, zclip = T, col = pal, zlim = zlim)
+
+# define unit label
+lab = &#39;Optimum Interpolation SST [deg C]&#39;
+
+# plot basemap
+plot(coastlineWorld, col = &#39;grey&#39;,
+     projection = &quot;+proj=eck3&quot;,
+     longitudelim=range(lon), 
+     latitudelim=range(lat))
+
+# add sst layer
+mapImage(lon, lat, sst, col=oceColorsTemperature)
+
+# overlay coastline again
+mapPolygon(coastlineWorld, col=&#39;grey&#39;)
+
+# add variable label
+mtext(paste0(lab),side = 3, line = 0, adj = 0, cex = 0.7)
+
+# add title
+title(paste0(dt))
+
+# add colour palette
+drawPalette(c$zlim, col=c$col, breaks=c$breaks, zlab = &#39;&#39;, fullpage = T)</code></pre>
+<p><img src="/post/2018-10-16-sst-in-r_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>That’s it! Happy plotting :)</p>
+</div>
