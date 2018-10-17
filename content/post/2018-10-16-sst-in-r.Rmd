@@ -38,11 +38,11 @@ The next step is to download and format the data. This involves 1) creating a ur
 
 ```{r}
 # convert date to new format
-dtc = format(dt, '%Y%m%d')
+dt = format(dt, '%Y%m%d')
 
 # assemble url to query NOAA database
-url_base = paste0("https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/access/", dtc, "120000-NCEI/0-fv02/")
-data_file = paste0(dtc, "120000-NCEI-L4_GHRSST-SSTblend-AVHRR_OI-GLOB-v02.0-fv02.0.nc")
+url_base = paste0("https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/access/", dt, "120000-NCEI/0-fv02/")
+data_file = paste0(dt, "120000-NCEI-L4_GHRSST-SSTblend-AVHRR_OI-GLOB-v02.0-fv02.0.nc")
 
 # define data url
 data_url = paste0(url_base, data_file)
@@ -117,7 +117,7 @@ mapPolygon(coastlineWorld, col='grey')
 mtext(paste0(lab),side = 3, line = 0, adj = 0, cex = 0.7)
 
 # add title
-title(paste0(dt))
+title(paste0(time))
 
 # add colour palette
 drawPalette(c$zlim, col=c$col, breaks=c$breaks, zlab = '', fullpage = T)
