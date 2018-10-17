@@ -100,8 +100,6 @@ lines(lin, col = 'blue')
 polygon(ply, lty = 2)
 ```
 
-### Projection
-
 When the need arises for a projection, as is often the case, the `oce` package has an impressive number available. Check out [Dan's blog post](https://dankelley.github.io/r/2015/04/03/oce-proj.html) for a full list. Plotting projected data is slower and a little bit clunkier because you need to use `oce` custom functions (e.g., `mapPoints()`, `mapLines()`, etc), but in my experience this tends to work well. I can't say the resulting maps are spectacularly pretty, but they're very accurate and theoretically quite customizable if there's something you'd like to change or add. Here's what that looks like:
 
 ``` {r oce-proj}
@@ -135,7 +133,7 @@ mapPolygon(longitude = ply$lon, latitude = ply$lat, lty = 2)
 
 `ggplot2` doesn't use `R`'s basic graphical functions (at least at the surface), but instead uses a different 'grammer of graphics' (hence 'gg') syntax for plotting. As a result, the plotting philosophy and coding syntax are quite different. This can create a bit of a learning curve at first, but offers a lot of incredibly powerful features. Here's a quick example:
 
-```{r}
+```{r ggplot2}
 library(ggplot2)
 library(mapdata)
 
