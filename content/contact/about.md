@@ -51,7 +51,7 @@ USA 02543
 256 Redfield (WHOI Village campus)
 
 #### Phone
-Office: +1 508 289-3866
+Office: +1 508 289-3866  
 Fax: +1 508 457-2134
 
 #### Lab Website
