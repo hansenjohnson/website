@@ -1,9 +1,14 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-.DS_store
-/public
+# R
+*.Rproj.user
+*.Rhistory
+*.RData
+*.Ruserdata
 
-# data files
+# System
+*.DS_store
+
+# Data
 *.nc
+
+# Directories
+/public
