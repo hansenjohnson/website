@@ -71,4 +71,4 @@ Here's an overview of some of the indispensable tools and resources that I use t
 
 [Marine Traffic](https://www.marinetraffic.com/en/ais/home/centerx:-63.6/centery:44.6/zoom:7): Real time AIS positions for ships around the world. They also now include vessel density maps.
 
-<script width="800" height="450" type="text/javascript" src="http://www.marinetraffic.com/js/embed.js"></script>
+<script width="800" height="450" type="text/javascript" src="https://www.marinetraffic.com/js/embed.js"></script>
