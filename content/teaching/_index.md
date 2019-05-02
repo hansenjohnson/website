@@ -51,7 +51,7 @@ A fellow grad student and I are developing some material to help upper-level und
 * Introduction to _for_ loops  
 * Writing and calling custom functions  
 
-### 05: Project organization
+### [05: Project management](https://christophrenkl.github.io/programming_tutorials/r-tutorial-05/)
 
 * Best practices  
   * File organization  
