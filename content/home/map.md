@@ -16,5 +16,5 @@ weight = 80
 +++
 
 <div align="center">
-  <iframe src="https://whalemap.ocean.dal.ca/server_index/whale_map_en.html" width="80%" height="540"></iframe>
+  <iframe src="https://whalemap.ocean.dal.ca/server_index/whalemap.html" width="80%" height="540"></iframe>
 </div>
