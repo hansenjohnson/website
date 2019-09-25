@@ -1,6 +1,9 @@
 # TODO
 Things to do for this website
 
+## Merge publication
+* merge `Presentations`, `Publications`
+
 ## Sound example page
 Borrow from previous website to build a nice page for showing sound examples for different species. I could probably write it in Rmd and make use of the nice .tabset feature for displaying each species.
 
@@ -12,6 +15,7 @@ Add a simple html slideshow (https://www.w3schools.com/w3css/w3css_slideshow.asp
 
 ## Ideas for future posts
 * Bathymetric maps in R
+* Gridding data in R (using raster)
 * Convert from LaTeX to MS Word (`latex2rtf`)
 * Logistic regression in R  
 * LDA in R  
