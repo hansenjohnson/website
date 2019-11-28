@@ -271,10 +271,10 @@ defaultContentLanguageInSubdir = false
   url = "/cv/"
   weight = 8
 
-[[menu.main]]
-  name = "Tools"
-  url = "/tools/"
-  weight = 9
+#[[menu.main]]
+#  name = "Tools"
+#  url = "/tools/"
+#  weight = 9
 
 [[menu.main]]
   name = "Contact"
