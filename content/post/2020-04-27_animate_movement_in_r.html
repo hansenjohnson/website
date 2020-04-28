@@ -1,0 +1,112 @@
+---
+title: Animating movement data in R
+author: Hansen Johnson
+date: '2020-04-27'
+slug: animate-movement-in-r
+categories:
+  - Data-visualization
+  - Mapping
+tags:
+  - R
+draft: no
+summary: Demonstrate how to use gganimate to animate movement data in R
+---
+
+
+
+<div id="motivation" class="section level2">
+<h2>Motivation</h2>
+<p>I do a lot of work with geographic position data from things that move over time, like <a href="https://hansenjohnson.org/project/gsl-zooplankton/">ships</a>, <a href="https://hansenjohnson.org/project/sonobuoys/">planes</a>, <a href="https://hansenjohnson.org/project/multispecies-habitat/">ocean gliders</a>, <a href="https://hansenjohnson.org/project/rw-location-uncertainty/">simulated whales</a>, and <a href="https://hansenjohnson.org/project/whalemap/">real whales</a>. The data sources can vary, but all their movement data can essentially be reduced to a table with columns for time, latitude, longitude, and some kind of track identifier, and a row for each new position. There are often other data types too, like from oceanographic sensors, but we won’t go there.</p>
+<p>These data by definition vary in both time and space, which can be difficult to represent on a static plot. That’s one reason why I’ve dabbled in making <a href="https://hansenjohnson.org/post/interactive-maps-in-r/">interactive plots</a> and <a href="https://hansenjohnson.org/post/making-movies-in-r/">movies</a>. In the past I’ve made movies manually by iteratively printing plots and then stitching them back together with a command-line utility. It works fine, but it’s a bit limited and not particularly convenient. I’ve known about <code>gganimate</code> for awhile, but haven’t had a chance to dig in until now.</p>
+<p>I decided to test out <code>gganimate</code> on using drifter data. Drifters are basically just floating GPS transmitters that are deployed to track surface currents in the ocean over long periods of time. The incredible <a href="https://www.aoml.noaa.gov/phod/gdp/">Global Drifter Program</a> has been maintaining a massive array of thousands these drifters across the world oceans for 40 years. It’s an unbelievable dataset, and all openly available!</p>
+</div>
+<div id="step-1-get-data" class="section level2">
+<h2>Step 1: Get data</h2>
+<p>I decided to try out <code>rnaturalearth</code> to grab basemap data with one line. Another trick here is querying the NOAA ERDDAP data server via url, and reading that data directly using <code>read_csv()</code>. You can also select and download the data manually from their website <a href="http://osmc.noaa.gov/erddap/tabledap/gdp_interpolated_drifter.html">here</a>.</p>
+<pre class="r"><code># libraries
+library(tidyverse)
+library(rnaturalearth)
+library(gganimate)
+
+# get basemap data
+bg = ne_countries(scale = &quot;medium&quot;, continent = &#39;north america&#39;, returnclass = &quot;sf&quot;)
+
+# get drifter data
+df = read_csv(&#39;http://osmc.noaa.gov/erddap/tabledap/gdp_interpolated_drifter.csvp?ID%2Clongitude%2Clatitude%2Ctime%2Cve%2Cvn&amp;longitude%3E=-70&amp;longitude%3C=-50&amp;latitude%3E=35&amp;latitude%3C=50&amp;time%3E=2018-01-01&amp;time%3C=2019-01-01&#39;)
+
+# assign convenient column names
+colnames(df) = c(&#39;id&#39;, &#39;lon&#39;, &#39;lat&#39;, &#39;time&#39;, &#39;ve&#39;, &#39;vn&#39;)</code></pre>
+</div>
+<div id="step-2-process-your-data" class="section level2">
+<h2>Step 2: Process your data</h2>
+<p>There are two tricks here. The first is to use a <a href="https://www.tidyverse.org/">tidy</a> approach to calculate daily average positions and speeds. The second is to create table with all possible combinations of instrument ID and date, then merge that with the existing data. This is a convenient way to add NAs on days when a drifter did not transmit, which will cause a line break when plotting. If you don’t do this you’ll end up with spurious lines connecting transmissions that are separated by multiple days.</p>
+<pre class="r"><code># compute daily average positions and speeds
+df_ave = df %&gt;%
+  mutate(date=as.Date(time)) %&gt;%
+  group_by(id,date) %&gt;%
+  summarise(
+    lat = mean(lat, na.rm = TRUE), 
+    lon = mean(lon, na.rm = TRUE),
+    spd = mean(sqrt(ve^2+vn^2), na.rm=TRUE)
+  ) 
+
+# create &#39;ideal&#39; data with all combinations of data
+ideal = expand_grid(
+  id = unique(df_ave$id),
+  date = seq.Date(from = min(df_ave$date), to = max(df_ave$date), by = 1)
+)
+
+# create complete dataset
+df_all = left_join(ideal,df_ave)</code></pre>
+</div>
+<div id="step-3-plot" class="section level2">
+<h2>Step 3: plot</h2>
+<p>I made this plot a little differently in anticipation of animation. Most importantly, you <em>need</em> to specify a group aesthetic for <code>geom_point()</code> so <code>gganimate</code> knows which points to include. If you don’t do this you’ll end up with a bunch of random points aimlessly drifting around your animation. Of course you also need to have <code>geom_path()</code> to plot lines so they’re visible in the animation, even though you can barely see them on the static map. And don’t worry about the labels yet - they’re handled in the animation step.</p>
+<p>The static map is a bit of a mess, but check out the Gulf Stream! Cool!</p>
+<pre class="r"><code>p = ggplot()+
+  
+  # basemap
+  geom_sf(data = bg)+
+  coord_sf(xlim = range(df_all$lon, na.rm = TRUE), 
+           ylim = range(df_all$lat, na.rm = TRUE), 
+           expand = FALSE)+
+  
+  # lines and points
+  geom_path(data = df_all, 
+            aes(x=lon,y=lat,group=id,color=spd), 
+            alpha = 0.3)+
+  geom_point(data = df_all, 
+             aes(x=lon,y=lat,group=id,fill=spd,size=spd),
+             alpha = 0.8,shape=21)+ # NEED group for animation
+  
+  # formatting
+  scale_fill_viridis_c(option = &quot;inferno&quot;)+
+  scale_color_viridis_c(option = &quot;inferno&quot;)+
+  scale_size_continuous(range = c(0.1,10))+
+  labs(x=NULL, y=NULL, 
+       fill = &#39;Speed (m/s)&#39;, 
+       color = &#39;Speed (m/s)&#39;, 
+       size = &#39;Speed (m/s)&#39;)+
+  theme_dark()+
+  theme(panel.grid = element_blank())
+p</code></pre>
+<p><img src="/post/2020-04-27_animate_movement_in_r_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="step-4-animate" class="section level2">
+<h2>Step 4: animate</h2>
+<p>It just takes a few lines to turn the messy plot into a beautiful animation. Before running this, though, you may need to install the <code>gifski</code> package to render the animation as a gif.</p>
+<p>I learned a few tricks through trial and error, and from poking around online. One is to use <code>transition_reveal()</code> to keep previous tracks on the map, rather than erasing them. Another is to use <code>ease_aes('linear')</code> to help smooth the transition between frames. The last one is to specify <code>nframes = 365</code> within <code>animate()</code> so that each day gets a frame, which again helps keep the animation nice and smooth. You can reduce this to speed up plotting.</p>
+<p>Now sit back and watch the craziness of open ocean dynamics unfold before your eyes! Amazing!</p>
+<pre class="r"><code># animate
+anim = p + 
+  transition_reveal(along = date)+
+  ease_aes(&#39;linear&#39;)+
+  ggtitle(&quot;Date: {frame_along}&quot;)
+
+animate(anim, nframes = 365, fps = 10)</code></pre>
+<p><img src="/post/2020-04-27_animate_movement_in_r_files/figure-html/unnamed-chunk-4-1.gif" /><!-- --></p>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>In short, I’m totally converted. It’s really slick, and because it builds off of <code>ggplot()</code>, which I now use almost exclusively, I can now convert static plots to beautiful animations in just a couple extra lines (i.e., just step 4). I think this will become a staple in my data vis toolbox.</p>
+</div>
