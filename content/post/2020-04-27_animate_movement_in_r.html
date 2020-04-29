@@ -77,7 +77,7 @@ df_all = left_join(ideal,df_ave)</code></pre>
             alpha = 0.3)+
   geom_point(data = df_all, 
              aes(x=lon,y=lat,group=id,fill=spd),
-             alpha = 0.8,shape=21)+ # NEED group for animation
+             alpha = 0.7, shape=21, size = 2)+
   
   # formatting
   scale_fill_viridis_c(option = &quot;inferno&quot;)+
@@ -89,7 +89,7 @@ df_all = left_join(ideal,df_ave)</code></pre>
   theme_dark()+
   theme(panel.grid = element_blank())
 p</code></pre>
-<p><img src="/post/2020-04-27_animate_movement_in_r_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/post/2020-04-27_animate_movement_in_r_files/figure-html/plot-1.png" width="672" /></p>
 </div>
 <div id="step-4-animate" class="section level2">
 <h2>Step 4: animate</h2>
@@ -103,7 +103,7 @@ anim = p +
   ggtitle(&quot;Date: {frame_along}&quot;)
 
 animate(anim, nframes = 365, fps = 10)</code></pre>
-<p><img src="/post/2020-04-27_animate_movement_in_r_files/figure-html/unnamed-chunk-4-1.gif" /><!-- --></p>
+<p><img src="/post/2020-04-27_animate_movement_in_r_files/figure-html/animate-1.gif" /><!-- --></p>
 </div>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
