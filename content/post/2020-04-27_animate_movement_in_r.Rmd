@@ -89,7 +89,7 @@ p = ggplot()+
             aes(x=lon,y=lat,group=id,color=spd), 
             alpha = 0.3)+
   geom_point(data = df_all, 
-             aes(x=lon,y=lat,group=id,fill=spd,size=spd),
+             aes(x=lon,y=lat,group=id,fill=spd),
              alpha = 0.8,shape=21)+ # NEED group for animation
   
   # formatting
@@ -98,8 +98,7 @@ p = ggplot()+
   scale_size_continuous(range = c(0.1,10))+
   labs(x=NULL, y=NULL, 
        fill = 'Speed (m/s)', 
-       color = 'Speed (m/s)', 
-       size = 'Speed (m/s)')+
+       color = 'Speed (m/s)')+
   theme_dark()+
   theme(panel.grid = element_blank())
 p
