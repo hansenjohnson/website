@@ -13,4 +13,6 @@
 # Directories
 /public
 /wrk
+/r
 
+.Rproj.user
