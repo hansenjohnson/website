@@ -1,0 +1,13 @@
+---
+title: Ocean data in ggplot2
+author: Hansen Johnson
+date: '2020-06-18'
+slug: ggplot2-tutorial
+categories:
+  - Data-visualization
+tags: []
+summary: Introduction to plotting ocean data with ggplot
+---
+
+I recently put together a quick tutorial on plotting using [ggplot2](https://ggplot2.tidyverse.org/). The content of the examples caters to ocean science applications, but hopefully the concepts are universal. I've always liked the [bookdown](https://bookdown.org/) format, so opted to give that a try. Check it out [here](https://hansenjohnson.github.io/ggplot2_tutorial/), and as always please feel free to get in touch with any comments or suggestions.
+
