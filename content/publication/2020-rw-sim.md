@@ -17,6 +17,8 @@ url_project = ""
 url_slides = ""
 url_video = ""
 
+projects = ["rw-location-uncertainty"]
+
 [[url_custom]]
 name = "View Journal Article"
 url = "https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/csp2.267"
