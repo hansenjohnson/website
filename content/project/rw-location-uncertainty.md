@@ -22,7 +22,7 @@ external_link = ""
 math = false
 
 # Optional image to display on homepage (relative to `static/img/` folder).
-image_preview = "blob.png"
+image_preview = "rw_sim.png"
 
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
