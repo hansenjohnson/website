@@ -145,6 +145,9 @@ defaultContentLanguageInSubdir = false
   highlight = true
   highlight_languages = ["r"]
   highlight_style = "xcode"
+  #highlight_style = "github-gist"
+  #highlight_style = "github"
+  # highlight_style = "monokai"
 
   # Enable native social sharing buttons?
   sharing = false
