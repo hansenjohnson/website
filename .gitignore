@@ -5,7 +5,7 @@
 *.Ruserdata
 
 # System
-*.DS_store
+*.DS_Store
 
 # Data
 *.nc
