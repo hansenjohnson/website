@@ -11,6 +11,4 @@ caption = ""
 
 +++
 
-<object data="/files/CV.pdf" width="100%" height="600" type='application/pdf'>
-  <p>Sorry, the PDF couldn't be displayed :(</p>
-</object>
+Here's a link to the latest version of my [CV](/files/CV.pdf)
