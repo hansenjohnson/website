@@ -17,4 +17,4 @@ image = ""
 caption = ""
 +++
 
-Please <a href="mailto:hansen.johnson@dal.ca">email me</a> for PDFs, and see my [CV](/cv/) for manuscripts *in preparation*, *submitted*, *accepted*, or *in press*.
+Please see my [CV](/cv/) for manuscripts *in preparation*, *submitted*, *accepted*, or *in press*.

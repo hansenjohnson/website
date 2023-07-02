@@ -10,7 +10,7 @@ title = "Hansen Johnson"
 
 # Your copyright notice - appears in site footer.
 # To display a copyright symbol, type `&copy;`.
-copyright = "&copy; Hansen Johnson 2021"
+copyright = "&copy; Hansen Johnson 2023"
 
 theme = "hugo-academic"
 enableEmoji = true
@@ -51,18 +51,8 @@ defaultContentLanguageInSubdir = false
 
   # Your details.
   name = "Hansen Johnson"
-  role = "PhD Student in Biological Oceanography"
+  role = "Marine scientist and sailor"
   description = "Hansen Johnson's personal website"
-
-  # Organizations/Affiliations.
-  #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
-  organizations = [ { name = "Dalhousie University", url = "" } ]
-
-  gravatar = false  # Get your avatar from Gravatar.com? (true/false)
-  avatar = "headshot.jpeg"  # Specify an avatar image (in `static/img/` folder) or delete value to disable avatar.
-  email = "hansen.johnson@dal.ca"
-  address = "Oceanography Department, Dalhousie University, 1355 Oxford St, Halifax NS Canada B3H 4R2"
-  phone = "1 902 494 2380"
 
   # Enable Keybase in Contact widget by entering your keybase.io username.
   keybase = ""
@@ -279,10 +269,10 @@ defaultContentLanguageInSubdir = false
 #  url = "/tools/"
 #  weight = 9
 
-[[menu.main]]
-  name = "Contact"
-  url = "/contact/"
-  weight = 10
+# [[menu.main]]
+#   name = "Contact"
+#   url = "/contact/"
+#   weight = 10
 
 # Taxonomies.
 [taxonomies]

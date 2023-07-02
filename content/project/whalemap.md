@@ -32,15 +32,8 @@ caption = ""
 
 +++
 
-I developed WhaleMap to communicate the latest right whale observations and survey results to scientific, regulatory and industrial sectors to inform more effective, dynamic planning of research and conservation activities. It's synchronized with data repositories from a number of different survey groups in Atlantic Canada, so that shortly after their planes land, boats tie up, or autonomous vehicles call home, the survey results will update here.
+I developed WhaleMap to communicate the latest right whale observations and survey results to scientific, regulatory and industrial sectors to inform more effective, dynamic planning of research and conservation activities. It's synchronized with data repositories from a number of different survey groups, so that shortly after their planes land, boats tie up, or autonomous vehicles call home, the survey results will update here.
 
 It would not be possible without help and feedback from my fellow lab members and collaborators at DFO, New England Aquarium, Canadian Whale Institute, NOAA, and others. It also relies entirely on the efforts of the data contributors. Their dedication and collaborative spirit give this species the best chance at survival.
 
-WhaleMap is written using entirely open source tools. It relies on Google Drive / Dropbox, [rclone](https://rclone.org/), R (and [Shiny](https://shiny.rstudio.com/)), and several linux commands (mostly cron for task scheduling). The links and presentation below should provide more information.
-
-Below are several links to various components of WhaleMap:
-
-* [Summary map](http://whalemap.ocean.dal.ca/)  
-* [DFO summary map](http://www.dfo-mpo.gc.ca/species-especes/mammals-mammiferes/narightwhale-baleinenoirean/alert-alerte/index-eng.html)  
-* [Interactive map](https://whalemap.ocean.dal.ca/WhaleMap/)  
-* [Source code](https://github.com/hansenjohnson/WhaleMap)  
+WhaleMap is written using entirely open source tools. It relies on Google Drive / Dropbox, [rclone](https://rclone.org/), R (and [Shiny](https://shiny.rstudio.com/)), and several linux commands (mostly cron for task scheduling). The links and presentation below should provide more information. More information is available at [whalemap.org](https://whalemap.org), in the WhaleMap publication, the GitHub repository, or by getting in touch with me!
