@@ -1,17 +1,11 @@
 # TODO
 Things to do for this website
 
-## Merge publication
-* merge `Presentations`, `Publications`
+## Fixes
+* Figure out why raw HTML is not rendering in markdown documents (at least the hidden `_index.md` files)
 
-## Sound example page
-Borrow from previous website to build a nice page for showing sound examples for different species. I could probably write it in Rmd and make use of the nice .tabset feature for displaying each species.
-
-## Friends page
-Links to people doing similar things, or other cool stuff
-
-## Photos page
-Add a simple html slideshow (https://www.w3schools.com/w3css/w3css_slideshow.asp) to show some fieldwork photos. Could have this as a separate page or a prominent section of the homepage.
+## Improvements
+* Update projects (Detection range modeling / validation)
 
 ## Ideas for future posts
 * Bathymetric maps in R
@@ -25,6 +19,3 @@ Add a simple html slideshow (https://www.w3schools.com/w3css/w3css_slideshow.asp
 * Make movie from plots in R
 * Crosstalk with leaflet and plotly
 * ...
-
-## Fixes
-* Update projects (Detection range modeling / validation)
