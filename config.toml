@@ -270,10 +270,10 @@ defaultContentLanguageInSubdir = false
 #  url = "/tools/"
 #  weight = 9
 
-# [[menu.main]]
-#   name = "Contact"
-#   url = "/contact/"
-#   weight = 10
+[[menu.main]]
+  name = "GitHub"
+  url = "https://github.com/hansenjohnson/"
+  weight = 10
 
 # Taxonomies.
 [taxonomies]
