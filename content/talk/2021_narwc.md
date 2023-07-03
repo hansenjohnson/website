@@ -18,7 +18,7 @@ selected = false
 projects = ["gsl-zooplankton"]
 
 # Links (optional).
-url_pdf = "/files/posters/2021_narwc.pdf"
+url_pdf = "/files/talks/2021_narwc.pdf"
 url_slides = ""
 url_video = ""
 url_code = ""

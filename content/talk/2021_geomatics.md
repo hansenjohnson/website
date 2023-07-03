@@ -18,7 +18,7 @@ selected = false
 projects = ["whalemap"]
 
 # Links (optional).
-url_pdf = "/files/posters/2021_geomatics.pdf"
+url_pdf = "/files/talks/2021_geomatics.pdf"
 url_slides = ""
 url_video = ""
 url_code = ""
