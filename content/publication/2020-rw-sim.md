@@ -17,7 +17,7 @@ url_project = ""
 url_slides = ""
 url_video = ""
 
-projects = ["rw-location-uncertainty"]
+projects = ["rw-sim"]
 
 [[url_custom]]
 name = "View Journal Article"

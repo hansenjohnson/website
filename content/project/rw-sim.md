@@ -1,6 +1,6 @@
 +++
 # Project title.
-title = "Right whale location uncertainty"
+title = "Right whale movement after detection"
 
 # Date this page was created.
 date = "2019-11-28"
