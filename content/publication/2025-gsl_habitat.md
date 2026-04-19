@@ -10,14 +10,14 @@ publication = "*Endangered Species Research*"
 publication_short = ""
 selected = false
 title = "North Atlantic right whale Eubalaena glacialis summer habitat in the southern Gulf of St. Lawrence, Canada: 2017–2019"
-url_code = "https://github.com/hansenjohnson/gsl-habitat"
+url_code = "https://github.com/hansenjohnson/gsl_habitat"
 url_dataset = ""
-url_pdf = "/files/publications/2025-gsl-habitat.pdf"
+url_pdf = "/files/publications/2025-gsl_habitat.pdf"
 url_project = ""
 url_slides = ""
 url_video = ""
 
-projects = ["gsl-habitat"]
+projects = ["gsl_habitat"]
 
 [[url_custom]]
 name = "View Journal Article"

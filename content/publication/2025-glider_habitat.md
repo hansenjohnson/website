@@ -10,14 +10,14 @@ publication = "*Marine Ecology Progress Series*"
 publication_short = ""
 selected = false
 title = "Using ocean gliders to characterize baleen whale habitat in the Northwest Atlantic"
-url_code = "https://github.com/hansenjohnson/glider-habitat"
+url_code = "https://github.com/hansenjohnson/glider_habitat"
 url_dataset = ""
-url_pdf = "/files/publications/2025-glider-habitat.pdf"
+url_pdf = "/files/publications/2025-glider_habitat.pdf"
 url_project = ""
 url_slides = ""
 url_video = ""
 
-projects = ["glider-habitat"]
+projects = ["glider_habitat"]
 
 [[url_custom]]
 name = "View Journal Article"
