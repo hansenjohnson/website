@@ -45,6 +45,14 @@ filter_default = 0
   tag = ".gliders"
 
 [[filter]]
+  name = "Health"
+  tag = ".health"
+
+[[filter]]
+  name = "Engineering"
+  tag = ".engineering"
+
+[[filter]]
   name = "Behavior"
   tag = ".behavior"
 
