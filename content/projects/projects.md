@@ -41,10 +41,6 @@ filter_default = 0
   tag = ".habitat-ecology"
 
 [[filter]]
-  name = "Ocean gliders"
-  tag = ".gliders"
-
-[[filter]]
   name = "Health"
   tag = ".health"
 
@@ -57,7 +53,7 @@ filter_default = 0
   tag = ".behavior"
 
 [[filter]]
-  name = "Data visualization"
-  tag = ".data-visualization"
+  name = "Management"
+  tag = ".management"
 
 +++

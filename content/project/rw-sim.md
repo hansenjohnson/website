@@ -10,7 +10,7 @@ summary = "Estimating right whale location following visual or acoustic detectio
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["bioacoustics","behavior"]
+tags = ["bioacoustics","behavior","management]
 
 # Categories: can be used for filtering projects, especially to distinguish them from blog posts
 categories = ["research"]

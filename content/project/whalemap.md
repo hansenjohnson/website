@@ -10,7 +10,7 @@ summary = "Collate and display whale survey results in near real-time"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["data-visualization","engineering"]
+tags = ["management","engineering"]
 
 # Categories: can be used for filtering projects, especially to distinguish them from blog posts
 categories = ["data-visualization"]

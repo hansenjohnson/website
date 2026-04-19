@@ -10,7 +10,7 @@ summary = "Evaluating the range-dependent accuracy of a near real-time baleen wh
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["bioacoustics","gliders"]
+tags = ["bioacoustics","gliders","management"]
 
 # Categories: can be used for filtering projects, especially to distinguish them from blog posts
 categories = ["research"]
