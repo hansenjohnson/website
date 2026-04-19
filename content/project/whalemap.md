@@ -6,7 +6,7 @@ title = "WhaleMap"
 date = "2017-02-28"
 
 # Project summary to display on homepage.
-summary = "Display results from right whale surveys in Atlantic Canada."
+summary = "Collate and display whale survey results in near real-time"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
