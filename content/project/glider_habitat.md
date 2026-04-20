@@ -10,7 +10,7 @@ summary = "Characterizing baleen whale habitat using ocean gliders"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["bioacoustics", "habitat-ecology"]
+tags = ["acoustics", "habitat"]
 
 # Categories: can be used for filtering projects, especially to distinguish them from blog posts
 categories = ["research"]

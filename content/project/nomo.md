@@ -11,7 +11,7 @@ summary = "Development of a low cost, open source system for monitoring noise le
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["bioacoustics","health","engineering"]
+tags = ["acoustics","health","engineering"]
 
 # Categories: can be used for filtering projects, especially to distinguish them from blog posts
 categories = ["research"]

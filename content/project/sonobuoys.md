@@ -10,7 +10,7 @@ summary = "Comparing vocal behavior and group composition of right whales with v
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["bioacoustics", "behavior"]
+tags = ["acoustics", "behavior"]
 
 # Categories: can be used for filtering projects, especially to distinguish them from blog posts
 categories = ["research"]

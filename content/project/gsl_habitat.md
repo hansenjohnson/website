@@ -10,7 +10,7 @@ summary = "Characterizing right whale habitat in the southern Gulf of St Lawrenc
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["habitat-ecology"]
+tags = ["habitat"]
 
 # Categories: can be used for filtering projects, especially to distinguish them from blog posts
 categories = ["research"]

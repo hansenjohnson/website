@@ -33,12 +33,12 @@ filter_default = 0
   tag = "*"
 
 [[filter]]
-  name = "Bioacoustics"
-  tag = ".bioacoustics"
+  name = "Acoustics"
+  tag = ".acoustics"
 
 [[filter]]
-  name = "Habitat ecology"
-  tag = ".habitat-ecology"
+  name = "Habitat"
+  tag = ".habitat"
 
 [[filter]]
   name = "Health"
@@ -51,9 +51,5 @@ filter_default = 0
 [[filter]]
   name = "Behavior"
   tag = ".behavior"
-
-[[filter]]
-  name = "Management"
-  tag = ".management"
 
 +++

@@ -10,10 +10,10 @@ summary = "Collate and display whale survey results in near real-time"
 
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
-tags = ["management","engineering"]
+tags = ["engineering"]
 
 # Categories: can be used for filtering projects, especially to distinguish them from blog posts
-categories = ["data-visualization"]
+categories = ["research"]
 
 # Optional external URL for project (replaces project detail page).
 # external_link = "http://leviathan.ocean.dal.ca/WhaleMap/"
